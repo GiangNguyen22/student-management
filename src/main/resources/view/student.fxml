@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.app.desktopapp.controller.StudentController">
+
+    <!-- TOP: Search -->
+    <HBox spacing="10">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <TextField fx:id="txtSearch" promptText="Search student..." />
+        <Button text="Search" onAction="#handleSearch"/>
+        <Button text="Clear" onAction="#handleClearSearch"/>
+    </HBox>
+
+
+    <!-- CENTER: Table -->
+    <TableView fx:id="tableStudent">
+        <columns>
+            <TableColumn fx:id="colStudentCode" text="StudentCode" prefWidth="60"/>
+            <TableColumn fx:id="colName" text="Name" prefWidth="200"/>
+            <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+            <TableColumn fx:id="colMajor" text="major" prefWidth="120"/>
+            <TableColumn fx:id="colDob" text="dob" prefWidth="120"/>
+            <TableColumn fx:id="colStartYear" text="Start Year" prefWidth="60"/>
+            <TableColumn fx:id="colGender" text="Gender" prefWidth="60"/>
+        </columns>
+    </TableView>
+
+    <!-- BOTTOM: Pagination -->
+    <HBox alignment="CENTER" spacing="10">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <Button text="Prev" onAction="#prevPage"/>
+        <Label fx:id="lblPage"/>
+        <Button text="Next" onAction="#nextPage"/>
+    </HBox>
+
+
+</BorderPane>
