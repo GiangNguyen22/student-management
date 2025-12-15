@@ -1,0 +1,132 @@
+/* General root */
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: linear-gradient(to bottom, #f7f9fc, #eef4fb);
+}
+
+/* Top / HBox spacing (applies to top and bottom HBoxes) */
+.hbox {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+
+/* Search text field */
+#txtSearch {
+    -fx-pref-width: 380px;
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #d7e0ef;
+    -fx-border-width: 1;
+    -fx-padding: 6 10 6 10;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+/* Buttons (Search, Clear, Prev, Next) */
+.button {
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-padding: 6 12 6 12;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 4, 0.5, 0, 1);
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Primary action look (Search / Next) */
+.button {
+    -fx-background-color: linear-gradient(#4a90e2, #357ab8);
+}
+.button:hover {
+    -fx-background-color: linear-gradient(#5aa0f2, #3a84d0);
+}
+
+/* Clear button style override (lighter) - if you prefer a secondary look */
+.button#clear {
+    -fx-background-color: linear-gradient(#f2f5f9, #e6eefb);
+    -fx-text-fill: #264058;
+    -fx-border-color: #d0d7e6;
+    -fx-border-width: 1;
+}
+
+/* Pagination label */
+#lblPage {
+    -fx-font-weight: 600;
+    -fx-text-fill: #2e3b47;
+}
+
+/* TableView container */
+#tableStudent {
+    -fx-background-color: white;
+    -fx-border-color: #e0e8f5;
+    -fx-border-width: 1;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 6, 0.5, 0, 2);
+}
+
+/* Table header background */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#f4f7fb, #edf4fb);
+}
+
+/* Column header text */
+.table-view .column-header, .table-view .column-header .label {
+    -fx-font-weight: 700;
+    -fx-text-fill: #243240;
+    -fx-alignment: CENTER-LEFT;
+}
+
+/* Header separators subtly */
+.table-view .column-header .label {
+    -fx-padding: 6 8 6 8;
+}
+
+/* Table cell padding */
+.table-cell {
+    -fx-padding: 8 10 8 10;
+    -fx-alignment: CENTER-LEFT;
+}
+
+/* Even / odd row striping */
+.table-row-cell:odd {
+    -fx-background-color: transparent;
+}
+.table-row-cell:even {
+    -fx-background-color: #fbfdff;
+}
+
+/* Hover and selection */
+.table-row-cell:hover {
+    -fx-background-color: rgba(74,144,226,0.08);
+}
+.table-row-cell:selected, .table-row-cell:focused:selected {
+    -fx-background-color: linear-gradient(#cfe8ff, #99d0ff);
+}
+
+/* Small details for smaller columns */
+#colStudentCode, #colStartYear, #colGender {
+    -fx-alignment: CENTER;
+}
+
+/* Date column style */
+#colDob {
+    -fx-alignment: CENTER;
+}
+
+/* Make sure scrollbars and table lines are subtle */
+.table-view .filler, .table-view .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+/* Responsive tweak for small windows */
+@media screen and (max-width: 700px) {
+    #txtSearch {
+        -fx-pref-width: 220px;
+    }
+    .button {
+        -fx-padding: 5 8 5 8;
+        -fx-font-size: 12px;
+    }
+}

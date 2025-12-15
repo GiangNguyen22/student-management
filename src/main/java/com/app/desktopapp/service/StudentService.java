@@ -1,8 +1,12 @@
 package com.app.desktopapp.service;
 
+import com.app.desktopapp.dto.ApiWrapper;
 import com.app.desktopapp.model.Student;
 import com.app.desktopapp.utils.AuthContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -12,7 +16,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
 
 public class StudentService {
 
@@ -21,9 +24,13 @@ public class StudentService {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    static {
+        mapper.registerModule(new JavaTimeModule());
+    }
+
     public static ApiResponse getStudents(int page) {
         return callApi(
-                BASE + "/student/paged?page=" + page + "&size=10"
+                BASE + "/students/paged?page=" + page + "&size=20"
         );
     }
 
@@ -37,7 +44,7 @@ public class StudentService {
 
         return callApi(
                 BASE + "/search?keyword=" + q
-                        + "&page=" + page + "&size=10"
+                        + "&page=" + page + "&size=20"
         );
     }
 
@@ -83,22 +90,14 @@ public class StudentService {
                 }
 
                 // Parse JSON response
-                Map<Object, ?> response = mapper.readValue(body, Map.class);
-
-                List<Student> students =
-                        mapper.convertValue(
-                                response.get("content"),
+                ApiWrapper<Student> responseWrapper =
+                        mapper.readValue(body,
                                 mapper.getTypeFactory()
-                                        .constructCollectionType(
-                                                List.class, Student.class
-                                        )
-                        );
+                                        .constructParametricType(ApiWrapper.class, Student.class));
 
-                Object totalPagesObj = response.get("totalPages");
+                List<Student> students = responseWrapper.getData().getContent();
+                int totalPages = responseWrapper.getData().getTotalPages();
 
-                int totalPages = totalPagesObj == null
-                        ? 1
-                        : ((Number) totalPagesObj).intValue();
 
                 return new ApiResponse(students, totalPages);
             }

@@ -3,11 +3,10 @@ package com.app.desktopapp.controller;
 import com.app.desktopapp.model.Student;
 import com.app.desktopapp.service.ApiResponse;
 import com.app.desktopapp.service.StudentService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
@@ -35,7 +34,13 @@ public class StudentController {
         colStudentCode.setCellValueFactory(new PropertyValueFactory<>("studentCode"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colDob.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colDob.setCellFactory(col -> new TableCell<Student, LocalDate>() {
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? "" : item.toString());
+            }
+        });
         colMajor.setCellValueFactory(new PropertyValueFactory<>("major"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
         colStartYear.setCellValueFactory(new PropertyValueFactory<>("startYear"));
@@ -46,19 +51,23 @@ public class StudentController {
     private boolean isSearching = false;
 
     private void loadData() {
-        ApiResponse res;
+        new Thread(() -> {
+            ApiResponse res;
+            if (isSearching && !txtSearch.getText().isBlank()) {
+                res = StudentService.searchStudents(txtSearch.getText(), currentPage);
+            } else {
+                res = StudentService.getStudents(currentPage);
+            }
 
-        if (isSearching && !txtSearch.getText().isBlank()) {
-            res = StudentService.searchStudents(
-                    txtSearch.getText(), currentPage
-            );
-        } else {
-            res = StudentService.getStudents(currentPage);
-        }
+            ObservableList<Student> obsList = FXCollections.observableArrayList(res.students);
 
-        tableStudent.getItems().setAll(res.students);
-        totalPages = res.totalPages;
-        lblPage.setText((currentPage + 1) + " / " + totalPages);
+            // Update UI trên FX thread
+            javafx.application.Platform.runLater(() -> {
+                tableStudent.setItems(obsList);
+                totalPages = res.totalPages;
+                lblPage.setText((currentPage + 1) + " / " + totalPages);
+            });
+        }).start();
     }
 
     @FXML
