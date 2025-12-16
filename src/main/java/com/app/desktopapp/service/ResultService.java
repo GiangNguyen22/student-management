@@ -1,7 +1,7 @@
 package com.app.desktopapp.service;
 
 import com.app.desktopapp.dto.ApiWrapper;
-import com.app.desktopapp.model.Course;
+import com.app.desktopapp.model.Result;
 import com.app.desktopapp.utils.AuthContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -15,10 +15,10 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class CourseService {
+public class ResultService {
 
     private static final String BASE =
-            "http://localhost:8080/courses";
+            "http://localhost:8080/api/results";
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -26,17 +26,18 @@ public class CourseService {
         mapper.registerModule(new JavaTimeModule());
     }
 
-    /** Lấy danh sách khóa học (phân trang) */
-    public static ApiResponse getCourses(int page) {
+    /** ================== GET PAGED RESULTS ================== */
+    public static ApiResponse<Result> getResults(int page) {
         return callApi(
                 BASE + "?page=" + page + "&size=20"
         );
     }
 
-    public static ApiResponse searchCourses(String keyword, int page) {
+    /** ================== SEARCH RESULTS ================== */
+    public static ApiResponse<Result> searchResults(String keyword, int page) {
 
         String q = "";
-        if (keyword != null) {
+        if (keyword != null && !keyword.isBlank()) {
             q = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
         }
 
@@ -46,7 +47,8 @@ public class CourseService {
         );
     }
 
-    private static ApiResponse callApi(String urlStr) {
+    /** ================== CORE CALL API ================== */
+    private static ApiResponse<Result> callApi(String urlStr) {
         HttpURLConnection conn = null;
         try {
             URL url = new URL(urlStr);
@@ -55,10 +57,12 @@ public class CourseService {
             conn.setConnectTimeout(5000);
             conn.setReadTimeout(5000);
 
+            // ===== JWT =====
             String token = AuthContext.getToken();
             if (token != null && !token.isBlank()) {
-                conn.setRequestProperty("Authorization",
-                        "Bearer " + token);
+                conn.setRequestProperty(
+                        "Authorization", "Bearer " + token
+                );
             }
 
             conn.setRequestProperty("Content-Type", "application/json");
@@ -72,7 +76,7 @@ public class CourseService {
 
             if (is == null) {
                 System.err.println("No response stream, HTTP status: " + status);
-                return new ApiResponse(List.of(), 1);
+                return new ApiResponse<>(List.of(), 1);
             }
 
             try (BufferedReader reader = new BufferedReader(
@@ -87,28 +91,34 @@ public class CourseService {
                 String body = sb.toString();
 
                 if (status >= 400) {
-                    System.err.println("API error " + status + " -> " + body);
-                    return new ApiResponse(List.of(), 1);
+                    System.err.println(
+                            "API error " + status + " -> " + body
+                    );
+                    return new ApiResponse<>(List.of(), 1);
                 }
 
-                ApiWrapper<Course> responseWrapper =
+                ApiWrapper<Result> wrapper =
                         mapper.readValue(
                                 body,
                                 mapper.getTypeFactory()
-                                        .constructParametricType(ApiWrapper.class, Course.class)
+                                        .constructParametricType(
+                                                ApiWrapper.class,
+                                                Result.class
+                                        )
                         );
 
-                List<Course> courses =
-                        responseWrapper.getData().getContent();
-                int totalPages =
-                        responseWrapper.getData().getTotalPages();
+                List<Result> results =
+                        wrapper.getData().getContent();
 
-                return new ApiResponse(courses, totalPages);
+                int totalPages =
+                        wrapper.getData().getTotalPages();
+
+                return new ApiResponse<>(results, totalPages);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new ApiResponse(List.of(), 1);
+            return new ApiResponse<>(List.of(), 1);
         } finally {
             if (conn != null) {
                 conn.disconnect();

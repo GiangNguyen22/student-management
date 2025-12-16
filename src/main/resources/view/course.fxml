@@ -17,7 +17,7 @@
             <Button onAction="#handleRefresh" styleClass="btn-refresh">
                 <graphic>
                     <ImageView>
-                        <Image url="@../images/refresh.png" />
+                        <Image url="@../images/app-icon.png" />
                     </ImageView>
                 </graphic>
             </Button>
@@ -45,7 +45,7 @@
             <columns>
                 <TableColumn fx:id="colCourseCode" text="Mã KH" prefWidth="100" resizable="true"/>
                 <TableColumn fx:id="colCourseName" text="Tên khóa học" prefWidth="280" resizable="true"/>
-                <TableColumn fx:id="colCredits" text="Số tín chỉ" prefWidth="100" resizable="true"/>
+                <TableColumn fx:id="colDesc" text="Mô tả" prefWidth="100" resizable="true"/>
                 <TableColumn fx:id="colSemester" text="Học kỳ" prefWidth="120" resizable="true"/>
             </columns>
             <columnResizePolicy>

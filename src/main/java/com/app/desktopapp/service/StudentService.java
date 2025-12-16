@@ -5,8 +5,6 @@ import com.app.desktopapp.model.Student;
 import com.app.desktopapp.utils.AuthContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

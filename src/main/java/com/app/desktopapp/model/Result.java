@@ -1,26 +1,50 @@
 package com.app.desktopapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Result {
+
+    // ===== Student =====
+    @JsonProperty("student.studentCode")
     private String studentCode;
+
+    @JsonProperty("student.name")
     private String studentName;
-    private String course;
-    private double score;
+
+    // ===== Course =====
+    @JsonProperty("course.courseCode")
+    private String courseCode;
+
+    @JsonProperty("course.courseName")
+    private String courseName;
+
+    // ===== Result =====
+    private Double score;
+    private String grade;
+    private String semester;
+    private String timeStudied;
 
     public Result() {}
-    public Result(String studentCode, String studentName, String course, double score) {
-        this.studentCode = studentCode;
-        this.studentName = studentName;
-        this.course = course;
-        this.score = score;
-    }
 
+    // ===== getters =====
     public String getStudentCode() { return studentCode; }
     public String getStudentName() { return studentName; }
-    public String getCourse() { return course; }
-    public double getScore() { return score; }
+    public String getCourseCode() { return courseCode; }
+    public String getCourseName() { return courseName; }
+    public Double getScore() { return score; }
+    public String getGrade() { return grade; }
+    public String getSemester() { return semester; }
+    public String getTimeStudied() { return timeStudied; }
 
+    // ===== setters =====
     public void setStudentCode(String studentCode) { this.studentCode = studentCode; }
     public void setStudentName(String studentName) { this.studentName = studentName; }
-    public void setCourse(String course) { this.course = course; }
-    public void setScore(double score) { this.score = score; }
+    public void setCourseCode(String courseCode) { this.courseCode = courseCode; }
+    public void setCourseName(String courseName) { this.courseName = courseName; }
+    public void setScore(Double score) { this.score = score; }
+    public void setGrade(String grade) { this.grade = grade; }
+    public void setSemester(String semester) { this.semester = semester; }
+    public void setTimeStudied(String timeStudied) { this.timeStudied = timeStudied; }
 }
