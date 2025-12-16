@@ -11,7 +11,6 @@
         stylesheets="@../css/login.css"
         styleClass="root">
 
-    <!-- Login Card -->
     <VBox spacing="8"
           alignment="CENTER"
           styleClass="login-card">
@@ -22,6 +21,17 @@
         <PasswordField fx:id="txtPassword" promptText="Password"/>
 
         <Button text="Login" onAction="#handleLogin"/>
+        <Button text="Register"
+                onAction="#openRegister"
+                style="-fx-background-color: transparent;
+               -fx-text-fill: #4a7bd6;
+               -fx-font-weight: 700;" />
+        <Button text="Home"
+                onAction="#openHome"
+                style="-fx-background-color: #2ecc71;
+               -fx-text-fill: white;
+               -fx-font-weight: 700;
+    " />
         <Label fx:id="lblStatus" styleClass="login-status"/>
 
     </VBox>

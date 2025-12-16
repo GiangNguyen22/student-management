@@ -22,9 +22,26 @@ public class AuthController {
 
         if (success) {
             lblStatus.setText("Login success");
-            SceneUtil.switchScene("/view/student.fxml");
+//            SceneUtil.switchScene("/view/student.fxml");
         } else {
             lblStatus.setText("Login failed");
         }
+    }
+    @FXML
+    private void openRegister() {
+        SceneUtil.switchScene("/view/register.fxml");
+    }
+
+    @FXML
+    private void openLogin() {
+        SceneUtil.switchScene("/view/login.fxml");
+    }
+    @FXML
+    private void openHome(){
+        SceneUtil.switchScene("/view/home.fxml");
+    }
+    @FXML
+    private void openStudent() {
+        SceneUtil.switchScene("/view/student.fxml");
     }
 }

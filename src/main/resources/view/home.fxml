@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.app.desktopapp.controller.HomeController"
+            stylesheets="@../css/home.css">
+
+    <left>
+        <VBox fx:id="sidebar" spacing="10" styleClass="sidebar" prefWidth="220">
+            <padding>
+                <Insets top="20" left="10" bottom="10" right="10"/>
+            </padding>
+
+            <Label text="Dashboard" styleClass="sidebar-title"/>
+            <Button text="Home" onAction="#loadHome" styleClass="sidebar-button"/>
+            <Button text="Quản lý Sinh viên" onAction="#loadStudent" styleClass="sidebar-button"/>
+            <Button text="Quản lý Khóa học" onAction="#loadCourse" styleClass="sidebar-button"/>
+            <Button text="Quản lý Kết quả" onAction="#loadResult" styleClass="sidebar-button"/>
+        </VBox>
+    </left>
+
+    <top>
+        <HBox styleClass="top-bar" spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" left="15" bottom="10" right="15"/>
+            </padding>
+            <Label text="Quản lý Sinh viên" styleClass="top-bar-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <AnchorPane fx:id="contentPane" styleClass="content-pane"/>
+    </center>
+</BorderPane>

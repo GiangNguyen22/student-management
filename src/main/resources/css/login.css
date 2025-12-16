@@ -1,18 +1,16 @@
-/* Root container */
 .root {
     -fx-font-family: "Segoe UI Semibold", "Segoe UI", "Arial";
-    -fx-font-weight: 600;                    /* chữ đậm hơn toàn app */
-    -fx-font-smoothing-type: lcd;            /*render nét hơn trên nhiều màn hình*/
+    -fx-font-weight: 600;                  
+    -fx-font-smoothing-type: lcd;        
     -fx-background-image: url("../images/bg2.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
-    -fx-background-size: cover; /* scale để lấp đầy khung (cover) */
+    -fx-background-size: cover; 
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #f5f8fb 0%, #eaf0f8 40%, #e1e9f5 100%);
     -fx-padding: 28;
     -fx-alignment: center;
 }
 
-/* Card login (compact) */
 .login-card {
     -fx-background-color: white;
     -fx-background-radius: 12;
@@ -22,28 +20,24 @@
     -fx-max-width: 420px;
     -fx-pref-width: 380px;
     -fx-min-width: 300px;
-    /* Rút ngắn chiều cao: ưu tiên chiều cao nội dung, nhưng có giới hạn */
-    -fx-pref-height: 320px;  /* chiều cao mặc định */
-    -fx-min-height: 260px;   /* chiều cao nhỏ nhất */
-    -fx-max-height: 420px;   /* tránh phóng to quá */
+    -fx-pref-height: 320px;  
+    -fx-min-height: 260px;  
+    -fx-max-height: 420px;  
 }
 
-/* Title */
 .login-title {
     -fx-font-size: 18px;
-    -fx-font-weight: 700;    /* tiêu đề đậm hơn nữa */
+    -fx-font-weight: 700;    
     -fx-text-fill: #2b4d78;
     -fx-padding: 4 0 4 0;
 }
 
-/* Label */
 .label {
     -fx-text-fill: #55606a;
     -fx-font-size: 13px;
-    -fx-font-weight: 600;    /* label đậm để dễ đọc */
+    -fx-font-weight: 600;  
 }
 
-/* TextField / PasswordField */
 .text-field, .password-field {
     -fx-pref-height: 32;
     -fx-background-radius: 8;
@@ -52,16 +46,14 @@
     -fx-background-color: #fbfdff;
     -fx-padding: 0 10 0 10;
     -fx-font-size: 13px;
-    -fx-font-weight: 600;    /* input chữ đậm hơn */
+    -fx-font-weight: 600;  
 }
 
-/* Focus state */
 .text-field:focused, .password-field:focused {
     -fx-border-color: #7aa0e6;
     -fx-effect: dropshadow(gaussian, rgba(122,160,230,0.12), 8, 0.15, 0, 2);
 }
 
-/* Button (primary) */
 .button {
     -fx-background-color: linear-gradient(to bottom, #4a7bd6, #2f5fb3);
     -fx-text-fill: white;
@@ -72,12 +64,10 @@
     -fx-font-size: 13px;
 }
 
-/* Hover */
 .button:hover {
     -fx-background-color: linear-gradient(to bottom, #3e69b8, #234f92);
 }
 
-/* Status text */
 .login-status {
     -fx-text-fill: #c0392b;
     -fx-font-size: 12px;

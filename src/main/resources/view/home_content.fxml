@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.app.desktopapp.controller.HomeContentController"
+            styleClass="content-pane">
+    
+    <VBox spacing="25" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        
+        <Label text="📊 Tổng quan hệ thống" styleClass="dashboard-title"/>
+        
+        <HBox spacing="20" alignment="CENTER">
+            <VBox styleClass="stat-card" alignment="CENTER">
+                <Label text="👥" styleClass="stat-icon"/>
+                <Label text="Tổng Sinh viên" styleClass="stat-label"/>
+                <Label fx:id="lblTotalStudents" text="0" styleClass="stat-value"/>
+            </VBox>
+            
+            <VBox styleClass="stat-card" alignment="CENTER">
+                <Label text="📚" styleClass="stat-icon"/>
+                <Label text="Tổng Khóa học" styleClass="stat-label"/>
+                <Label fx:id="lblTotalCourses" text="0" styleClass="stat-value"/>
+            </VBox>
+            
+            <VBox styleClass="stat-card" alignment="CENTER">
+                <Label text="📈" styleClass="stat-icon"/>
+                <Label text="Tổng Kết quả" styleClass="stat-label"/>
+                <Label fx:id="lblTotalResults" text="0" styleClass="stat-value"/>
+            </VBox>
+            
+            <VBox styleClass="stat-card" alignment="CENTER">
+                <Label text="⭐" styleClass="stat-icon"/>
+                <Label text="Điểm TB" styleClass="stat-label"/>
+                <Label fx:id="lblAvgScore" text="0.0" styleClass="stat-value"/>
+            </VBox>
+        </HBox>
+        
+        <VBox spacing="15">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="🆕 Sinh viên mới đăng ký" styleClass="section-title"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Button text="Xem tất cả" styleClass="link-button"/>
+            </HBox>
+            
+            <TableView fx:id="tableRecentStudents" styleClass="recent-table" prefHeight="280">
+                <columns>
+                    <TableColumn fx:id="colRecentCode" text="MSSV" prefWidth="100"/>
+                    <TableColumn fx:id="colRecentName" text="Họ tên" prefWidth="200"/>
+                    <TableColumn fx:id="colRecentMajor" text="Chuyên ngành" prefWidth="150"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+        
+        <VBox spacing="15">
+            <Label text="⚡ Thao tác nhanh" styleClass="section-title"/>
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="➕ Thêm sinh viên" styleClass="quick-action-btn"/>
+                <Button text="📖 Thêm khóa học" styleClass="quick-action-btn"/>
+                <Button text="📊 Nhập kết quả" styleClass="quick-action-btn"/>
+                <Button text="📋 Báo cáo" styleClass="quick-action-btn"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>
