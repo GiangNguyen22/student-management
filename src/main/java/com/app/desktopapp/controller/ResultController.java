@@ -18,7 +18,7 @@ public class ResultController {
     @FXML private TableColumn<Result, String> colStudentName;
     @FXML private TableColumn<Result, String> colCourse;
     @FXML private TableColumn<Result, Double> colScore;
-    
+
     @FXML private Button btnEdit, btnDelete, btnView;
     @FXML private Label lblRecordCount, lblAverageScore, lblPassFailStats;
 
@@ -41,22 +41,22 @@ public class ResultController {
             Result result = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(result.getStudentCode());
         });
-        
+
         colStudentName.setCellValueFactory(cellData -> {
             Result result = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(result.getStudentName());
         });
-        
+
         colCourse.setCellValueFactory(cellData -> {
             Result result = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(result.getCourse());
         });
-        
+
         colScore.setCellValueFactory(cellData -> {
             Result result = cellData.getValue();
             return new javafx.beans.property.SimpleDoubleProperty(result.getScore()).asObject();
         });
-        
+
         // Format score column to show 1 decimal place
         colScore.setCellFactory(tc -> new TableCell<Result, Double>() {
             @Override
@@ -105,7 +105,7 @@ public class ResultController {
 
     private void updateStatistics() {
         lblRecordCount.setText(filteredResults.size() + "/" + results.size() + " kết quả");
-        
+
         if (!filteredResults.isEmpty()) {
             double averageScore = filteredResults.stream()
                 .mapToDouble(Result::getScore)
@@ -115,7 +115,7 @@ public class ResultController {
         } else {
             lblAverageScore.setText("Điểm TB: 0.0");
         }
-        
+
         long passCount = filteredResults.stream().filter(r -> r.getScore() >= 5.0).count();
         long failCount = filteredResults.stream().filter(r -> r.getScore() < 5.0).count();
         lblPassFailStats.setText("Đạt: " + passCount + " | Không đạt: " + failCount);
@@ -125,7 +125,7 @@ public class ResultController {
     @FXML
     private void handleSearch() {
         String searchText = txtSearch.getText().toLowerCase().trim();
-        
+
         if (searchText.isEmpty()) {
             filteredResults.setAll(results);
         } else {
@@ -135,7 +135,7 @@ public class ResultController {
                            r.getCourse().toLowerCase().contains(searchText))
                 .collect(Collectors.toList()));
         }
-        
+
         tableResult.setItems(filteredResults);
         updateStatistics();
     }
@@ -195,7 +195,7 @@ public class ResultController {
                 selected.getStudentCode(), selected.getStudentName(),
                 selected.getCourse(), selected.getScore(), status
             );
-            
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Chi tiết kết quả");
             alert.setHeaderText("Thông tin chi tiết");

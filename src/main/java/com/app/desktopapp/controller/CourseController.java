@@ -18,7 +18,7 @@ public class CourseController {
     @FXML private TableColumn<Course, String> colCourseName;
     @FXML private TableColumn<Course, Integer> colCredits;
     @FXML private TableColumn<Course, String> colSemester;
-    
+
     @FXML private Button btnEdit, btnDelete, btnView;
     @FXML private Label lblRecordCount, lblTotalCredits, lblSemesterStats;
 
@@ -41,17 +41,17 @@ public class CourseController {
             Course course = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(course.getCode());
         });
-        
+
         colCourseName.setCellValueFactory(cellData -> {
             Course course = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(course.getName());
         });
-        
+
         colCredits.setCellValueFactory(cellData -> {
             Course course = cellData.getValue();
             return new javafx.beans.property.SimpleIntegerProperty(course.getCredits()).asObject();
         });
-        
+
         colSemester.setCellValueFactory(cellData -> {
             Course course = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(course.getSemester());
@@ -92,10 +92,10 @@ public class CourseController {
 
     private void updateStatistics() {
         lblRecordCount.setText(filteredCourses.size() + "/" + courses.size() + " khóa học");
-        
+
         int totalCredits = filteredCourses.stream().mapToInt(Course::getCredits).sum();
         lblTotalCredits.setText("Tổng tín chỉ: " + totalCredits);
-        
+
         long ky1Count = filteredCourses.stream().filter(c -> "Kỳ 1".equals(c.getSemester())).count();
         long ky2Count = filteredCourses.stream().filter(c -> "Kỳ 2".equals(c.getSemester())).count();
         long ky3Count = filteredCourses.stream().filter(c -> "Kỳ 3".equals(c.getSemester())).count();
@@ -107,7 +107,7 @@ public class CourseController {
     @FXML
     private void handleSearch() {
         String searchText = txtSearch.getText().toLowerCase().trim();
-        
+
         if (searchText.isEmpty()) {
             filteredCourses.setAll(courses);
         } else {
@@ -117,7 +117,7 @@ public class CourseController {
                            c.getSemester().toLowerCase().contains(searchText))
                 .collect(Collectors.toList()));
         }
-        
+
         tableCourse.setItems(filteredCourses);
         updateStatistics();
     }
@@ -174,7 +174,7 @@ public class CourseController {
                 "Học kỳ: %s",
                 selected.getCode(), selected.getName(), selected.getCredits(), selected.getSemester()
             );
-            
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Chi tiết khóa học");
             alert.setHeaderText("Thông tin chi tiết");

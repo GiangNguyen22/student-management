@@ -9,7 +9,7 @@ public class ApiResponse {
     public int totalPages;
 
     public ApiResponse(List<Student> students, int totalPages) {
-        this.students = students;
+        this.students = (students == null) ? List.of() : students;
         this.totalPages = totalPages;
     }
 }
