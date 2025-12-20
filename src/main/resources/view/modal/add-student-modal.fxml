@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.app.desktopapp.controller.AddStudentDialogController">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Thêm sinh viên mới" styleClass="dialog-title"/>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Username:" GridPane.rowIndex="0"/>
+        <TextField fx:id="txtUsername" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Email:" GridPane.rowIndex="1"/>
+        <TextField fx:id="txtEmail" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Password:" GridPane.rowIndex="2"/>
+        <PasswordField fx:id="txtPassword" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Họ tên:" GridPane.rowIndex="3"/>
+        <TextField fx:id="txtName" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Ngày sinh:" GridPane.rowIndex="4"/>
+        <DatePicker fx:id="dpDob" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="MSSV:" GridPane.rowIndex="5"/>
+        <TextField fx:id="txtStudentCode" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Ngành:" GridPane.rowIndex="6"/>
+        <TextField fx:id="txtMajorName" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+        <Label text="Khóa:" GridPane.rowIndex="7"/>
+        <TextField fx:id="txtYear" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Hủy" onAction="#handleCancel" styleClass="btn-cancel"/>
+        <Button text="Lưu" onAction="#handleSave" styleClass="btn-save"/>
+    </HBox>
+
+</VBox>

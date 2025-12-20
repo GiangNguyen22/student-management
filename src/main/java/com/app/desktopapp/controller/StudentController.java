@@ -1,5 +1,6 @@
 package com.app.desktopapp.controller;
 
+import com.app.desktopapp.controller.action.EditStudentController;
 import com.app.desktopapp.model.Student;
 import com.app.desktopapp.service.ApiResponse;
 import com.app.desktopapp.service.StudentService;
@@ -7,11 +8,18 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class StudentController {
 
@@ -145,33 +153,122 @@ public class StudentController {
 
     @FXML
     private void handleAddStudent() {
-        showInfoAlert("Chức năng thêm sinh viên sẽ được phát triển sau!");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/modal/add-student-modal.fxml")
+            );
+            Parent root = loader.load();
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Thêm sinh viên");
+            dialog.getIcons().add(
+                    new Image(getClass().getResourceAsStream("/images/logo.png"))
+            );
+            dialog.initModality(Modality.APPLICATION_MODAL);
+
+            // set owner (quan trọng)
+            Stage owner = (Stage) tableStudent.getScene().getWindow();
+            dialog.initOwner(owner);
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(
+                    getClass().getResource("/css/add-student.css").toExternalForm()
+            );
+            dialog.setScene(scene);
+
+            AddStudentDialogController controller = loader.getController();
+            controller.setStage(dialog);
+
+            dialog.showAndWait();
+
+            if (controller.isSaved()) {
+                loadData(); // chỉ reload khi lưu
+                System.out.println("Đã thêm: " + controller.getUsername());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
 
     @FXML
     private void handleEditStudent() {
         Student selected = tableStudent.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            showInfoAlert("Chỉnh sửa sinh viên: " + selected.getName());
+
+        if (selected == null) {
+            showInfoAlert("Vui lòng chọn sinh viên cần chỉnh sửa");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/modal/edit-student-modal.fxml")
+            );
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(
+                    getClass().getResource("/css/edit-student.css").toExternalForm()
+            );
+
+            EditStudentController controller = loader.getController();
+            controller.setStudent(selected);
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Chỉnh sửa sinh viên");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(tableStudent.getScene().getWindow()); // khuyên dùng
+            dialog.setScene(scene);
+
+            dialog.getIcons().add(
+                    new Image(getClass().getResourceAsStream("/images/logo.png"))
+            );
+
+            dialog.showAndWait();
+
+            loadData(); // reload table sau khi sửa
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+
 
     @FXML
     private void handleDeleteStudent() {
         Student selected = tableStudent.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Xác nhận xóa");
-            alert.setHeaderText("Xóa sinh viên");
-            alert.setContentText("Bạn có chắc chắn muốn xóa sinh viên " + selected.getName() + "?");
-
-            if (alert.showAndWait().get() == ButtonType.OK) {
-                students.remove(selected);
-                updateStatistics();
-                showInfoAlert("Đã xóa sinh viên thành công!");
-            }
+        if (selected == null) {
+            showInfoAlert("Vui lòng chọn sinh viên để xóa");
+            return;
         }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Xác nhận xóa");
+        alert.setHeaderText("Xóa sinh viên");
+        alert.setContentText(
+                "Bạn có chắc chắn muốn xóa sinh viên " + selected.getName() + "?"
+        );
+
+        alert.showAndWait().ifPresent(result -> {
+            if (result == ButtonType.OK) {
+
+                boolean ok = StudentService
+                        .deleteStudent(selected.getStudentCode());
+
+                if (ok) {
+                    students.remove(selected);
+                    updateStatistics();
+                    showInfoAlert("Đã xóa sinh viên thành công!");
+                } else {
+                    showInfoAlert("Xóa sinh viên thất bại");
+                }
+            }
+        });
     }
+
 
     @FXML
     private void handleViewDetails() {

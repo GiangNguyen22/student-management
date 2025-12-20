@@ -1,5 +1,7 @@
 package com.app.desktopapp.controller;
 
+import com.app.desktopapp.controller.action.AddCourseController;
+import com.app.desktopapp.controller.action.EditCourseModal;
 import com.app.desktopapp.model.Course;
 import com.app.desktopapp.service.ApiResponse;
 import com.app.desktopapp.service.CourseService;
@@ -7,9 +9,15 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class CourseController {
 
@@ -19,6 +27,7 @@ public class CourseController {
     @FXML private TableColumn<Course, String> colCourseName;
     @FXML private TableColumn<Course, Integer> colDesc;
     @FXML private TableColumn<Course, String> colSemester;
+
 
     @FXML private Button btnEdit, btnDelete, btnView;
     @FXML private Label lblRecordCount, lblTotalCredits, lblSemesterStats;
@@ -117,33 +126,118 @@ public class CourseController {
 
     @FXML
     private void handleAddCourse() {
-        showInfoAlert("Chức năng thêm khóa học sẽ được phát triển sau!");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/modal/add-course-modal.fxml")
+            );
+            Parent root = loader.load();
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Thêm khóa học");
+            dialog.getIcons().add(
+                    new Image(getClass().getResourceAsStream("/images/logo.png"))
+            );
+            dialog.initModality(Modality.APPLICATION_MODAL);
+
+            // set owner (quan trọng)
+            Stage owner = (Stage) tableCourse.getScene().getWindow();
+            dialog.initOwner(owner);
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(
+                    getClass().getResource("/css/add-student.css").toExternalForm()
+            );
+            dialog.setScene(scene);
+
+            AddCourseController controller = loader.getController();
+            controller.setStage(dialog);
+
+            dialog.showAndWait();
+
+            if (controller.isSaved()) {
+                loadData(); // chỉ reload khi lưu
+                System.out.println("Đã thêm: " + controller.getCourseName());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleEditCourse() {
         Course selected = tableCourse.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            showInfoAlert("Chỉnh sửa khóa học: " + selected.getCourseName());
+        if (selected == null) {
+            showInfoAlert("Vui lòng chọn khóa học cần chỉnh sửa");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/modal/edit-course-modal.fxml"));
+            Parent root = loader.load();
+
+            EditCourseModal controller = loader.getController();
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Chỉnh sửa khóa học");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setScene(new Scene(root));
+            dialog.getIcons().add(
+                    new Image(getClass().getResourceAsStream("/images/logo.png"))
+            );
+
+            controller.setStage(dialog);
+            controller.setCourse(selected);
+
+            dialog.showAndWait();
+
+            if (controller.isUpdated()) {
+                loadData();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 
     @FXML
     private void handleDeleteCourse() {
-        Course selected = tableCourse.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Xác nhận xóa");
-            alert.setHeaderText("Xóa khóa học");
-            alert.setContentText("Bạn có chắc chắn muốn xóa khóa học " + selected.getCourseName() + "?");
 
-            if (alert.showAndWait().get() == ButtonType.OK) {
-                courses.remove(selected);
-//                updateStatistics();
+        Course selected = tableCourse
+                .getSelectionModel()
+                .getSelectedItem();
+
+        if (selected == null) {
+            showInfoAlert("Vui lòng chọn khóa học cần xóa!");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Xác nhận xóa");
+        alert.setHeaderText("Xóa khóa học");
+        alert.setContentText(
+                "Bạn có chắc chắn muốn xóa khóa học \""
+                        + selected.getCourseName() + "\"?"
+        );
+
+        if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+
+            boolean success =
+                    CourseService.deleteCourse(
+                            selected.getCourseCode()
+                    );
+
+            if (success) {
                 showInfoAlert("Đã xóa khóa học thành công!");
+                loadData(); // reload từ server
+            } else {
+                showInfoAlert("Xóa khóa học thất bại!");
             }
         }
     }
+
 
     @FXML
     private void handleViewDetails() {

@@ -1,6 +1,7 @@
 package com.app.desktopapp.service;
 
 import com.app.desktopapp.dto.ApiWrapper;
+import com.app.desktopapp.dto.CourseRequestDTO;
 import com.app.desktopapp.model.Course;
 import com.app.desktopapp.utils.AuthContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -115,4 +117,175 @@ public class CourseService {
             }
         }
     }
+
+    /** Thêm khóa học */
+    public static boolean createCourse(CourseRequestDTO request) {
+
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(BASE + "/create");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+
+            String token = AuthContext.getToken();
+            if (token != null && !token.isBlank()) {
+                conn.setRequestProperty(
+                        "Authorization",
+                        "Bearer " + token
+                );
+            }
+
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            // convert request -> JSON
+            String json = mapper.writeValueAsString(request);
+            conn.getOutputStream()
+                    .write(json.getBytes(StandardCharsets.UTF_8));
+
+            int status = conn.getResponseCode();
+
+            if (status == 200 || status == 201) {
+                return true;
+            }
+
+            // log lỗi backend nếu có
+            InputStream err = conn.getErrorStream();
+            if (err != null) {
+                try (BufferedReader br = new BufferedReader(
+                        new InputStreamReader(err, StandardCharsets.UTF_8))) {
+                    System.err.println(br.readLine());
+                }
+            }
+
+            return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+    }
+
+    public static boolean updateCourse(CourseRequestDTO course) {
+
+        HttpURLConnection conn = null;
+        try {
+            // 1️⃣ Build URL
+            URL url = new URL(
+                    BASE + "/" + course.getCourseCode() + "/update"
+            );
+
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("PUT");
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+
+            // 2️⃣ Header Authorization
+            String token = AuthContext.getToken();
+            if (token != null && !token.isBlank()) {
+                conn.setRequestProperty(
+                        "Authorization", "Bearer " + token
+                );
+            }
+
+            conn.setRequestProperty(
+                    "Content-Type", "application/json"
+            );
+
+            // 3️⃣ Build request body (map DTO → Request)
+            CourseRequestDTO request = new CourseRequestDTO();
+            request.setCourseName(course.getCourseName());
+            request.setDescription(course.getDescription());
+            request.setStaffCode(course.getStaffCode());
+            request.setStartDate(course.getStartDate());
+            request.setEndDate(course.getEndDate());
+
+            String json = mapper.writeValueAsString(request);
+
+            // 4️⃣ Send body
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(json.getBytes(StandardCharsets.UTF_8));
+                os.flush();
+            }
+
+            // 5️⃣ Handle response
+            int status = conn.getResponseCode();
+
+            if (status >= 200 && status < 300) {
+                return true;
+            } else {
+                InputStream es = conn.getErrorStream();
+                if (es != null) {
+                    String err = new BufferedReader(
+                            new InputStreamReader(es)
+                    ).lines().reduce("", (a, b) -> a + b);
+                    System.err.println("Update course error: " + err);
+                }
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+    public static boolean deleteCourse(String courseCode) {
+
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(
+                    BASE + "/" + courseCode + "/delete"
+            );
+
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+
+            String token = AuthContext.getToken();
+            if (token != null && !token.isBlank()) {
+                conn.setRequestProperty(
+                        "Authorization", "Bearer " + token
+                );
+            }
+
+            conn.setRequestProperty(
+                    "Content-Type", "application/json"
+            );
+
+            int status = conn.getResponseCode();
+
+            if (status >= 200 && status < 300) {
+                return true;
+            } else {
+                InputStream es = conn.getErrorStream();
+                if (es != null) {
+                    String err = new BufferedReader(
+                            new InputStreamReader(es)
+                    ).lines().reduce("", (a, b) -> a + b);
+                    System.err.println("Delete course error: " + err);
+                }
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+
+
 }

@@ -1,6 +1,5 @@
 package com.app.desktopapp;
 
-import com.app.desktopapp.controller.AuthController;
 import com.app.desktopapp.utils.SceneUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

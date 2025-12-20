@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.app.desktopapp.controller.action.AddCourseController"
+      spacing="14"
+      styleClass="modal-root">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Thêm khóa học mới" styleClass="header-label"/>
+
+    <GridPane hgap="12" vgap="12">
+        <columnConstraints>
+            <ColumnConstraints minWidth="140"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Mã khóa học:" GridPane.rowIndex="0"/>
+        <TextField fx:id="txtCourseCode" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Tên khóa học:" GridPane.rowIndex="1"/>
+        <TextField fx:id="txtCourseName" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Giảng viên (Staff Code):" GridPane.rowIndex="2"/>
+        <TextField fx:id="txtStaffCode" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Ngày bắt đầu:" GridPane.rowIndex="3"/>
+        <DatePicker fx:id="dpStartDate" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Ngày kết thúc:" GridPane.rowIndex="4"/>
+        <DatePicker fx:id="dpEndDate" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Mô tả:" GridPane.rowIndex="5"/>
+        <TextArea fx:id="txtDescription"
+                  prefRowCount="3"
+                  GridPane.rowIndex="5"
+                  GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="12" alignment="CENTER_RIGHT" styleClass="buttons">
+        <Button text="Hủy" onAction="#handleCancel" styleClass="cancel"/>
+        <Button text="Lưu" onAction="#handleSave"/>
+    </HBox>
+
+</VBox>

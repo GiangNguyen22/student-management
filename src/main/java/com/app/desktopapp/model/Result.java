@@ -7,17 +7,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Result {
 
     // ===== Student =====
-    @JsonProperty("student.studentCode")
     private String studentCode;
 
-    @JsonProperty("student.name")
+    @JsonProperty("fullName")
     private String studentName;
 
     // ===== Course =====
-    @JsonProperty("course.courseCode")
     private String courseCode;
 
-    @JsonProperty("course.courseName")
     private String courseName;
 
     // ===== Result =====

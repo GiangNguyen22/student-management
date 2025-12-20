@@ -15,11 +15,15 @@ module com.app.desktopapp {
 
     opens com.app.desktopapp.controller to javafx.fxml;
 
+    opens com.app.desktopapp.controller.action to javafx.fxml;
+
     opens com.app.desktopapp.model to com.fasterxml.jackson.databind, javafx.base;
 
     opens com.app.desktopapp.dto to com.fasterxml.jackson.databind;
 
     exports com.app.desktopapp;
+
+    exports com.app.desktopapp.controller.action;
 
     exports com.app.desktopapp.model;
 }

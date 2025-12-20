@@ -1,6 +1,7 @@
 package com.app.desktopapp.service;
 
 import com.app.desktopapp.dto.ApiWrapper;
+import com.app.desktopapp.dto.CreateStudentRequest;
 import com.app.desktopapp.model.Student;
 import com.app.desktopapp.utils.AuthContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 public class StudentService {
 
@@ -35,14 +37,17 @@ public class StudentService {
     public static ApiResponse searchStudents(
             String keyword, int page) {
 
-        String q = "";
-        if (keyword != null) {
-            q = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
-        }
+        String q = keyword == null
+                ? ""
+                : URLEncoder.encode(keyword, StandardCharsets.UTF_8);
 
         return callApi(
-                BASE + "/search?keyword=" + q
-                        + "&page=" + page + "&size=20"
+                BASE + "/search"
+                        + "?studentCode=" + q
+                        + "&name=" + q
+                        + "&grade=" + q
+                        + "&page=" + page
+                        + "&size=20"
         );
     }
 
@@ -109,4 +114,120 @@ public class StudentService {
             }
         }
     }
+
+    public static boolean createStudent(CreateStudentRequest req) {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(BASE + "/create");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+            conn.setDoOutput(true);
+
+            String token = AuthContext.getToken();
+            if (token != null && !token.isBlank()) {
+                conn.setRequestProperty("Authorization",
+                        "Bearer " + token);
+            }
+
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            // Convert object -> JSON
+            String json = mapper.writeValueAsString(req);
+            conn.getOutputStream()
+                    .write(json.getBytes(StandardCharsets.UTF_8));
+
+            int status = conn.getResponseCode();
+
+            if (status == 200 || status == 201) {
+                return true;
+            }
+
+            InputStream err = conn.getErrorStream();
+            if (err != null) {
+                System.err.println(
+                        new String(err.readAllBytes(), StandardCharsets.UTF_8)
+                );
+            }
+            return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+    public static boolean updateStudent(
+            String studentCode,
+            Map<String, Object> updateData) {
+
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(BASE + "/student/" + studentCode);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("PUT");
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+
+            String token = AuthContext.getToken();
+            if (token != null && !token.isBlank()) {
+                conn.setRequestProperty("Authorization",
+                        "Bearer " + token);
+            }
+
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            String json = mapper.writeValueAsString(updateData);
+            conn.getOutputStream()
+                    .write(json.getBytes(StandardCharsets.UTF_8));
+
+            int status = conn.getResponseCode();
+
+            return status == 200;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+
+    public static boolean deleteStudent(String studentCode) {
+
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(BASE + "/student/" + studentCode);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+
+            String token = AuthContext.getToken();
+            if (token != null && !token.isBlank()) {
+                conn.setRequestProperty(
+                        "Authorization", "Bearer " + token
+                );
+            }
+
+            conn.connect();
+
+            int status = conn.getResponseCode();
+            return status == 200 || status == 204;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+
+
 }
