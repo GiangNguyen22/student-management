@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.app.desktopapp.controller.action.EditCourseModal"
+      spacing="14"
+      styleClass="modal-root">
+
+    <padding>
+        <Insets top="20" right="24" bottom="20" left="24"/>
+    </padding>
+
+    <!-- Header -->
+    <Label text="Chỉnh sửa khóa học"
+           styleClass="header-label"/>
+
+    <!-- Form -->
+    <GridPane hgap="12" vgap="12">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Tên khóa học:" GridPane.rowIndex="0"/>
+        <TextField fx:id="txtCourseName"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Mã khóa học:" GridPane.rowIndex="1"/>
+        <TextField fx:id="txtCourseCode"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="1"
+                   disable="true"/>
+
+        <Label text="Mô tả:" GridPane.rowIndex="2"/>
+        <TextArea fx:id="txtDescription"
+                  prefRowCount="3"
+                  GridPane.rowIndex="2"
+                  GridPane.columnIndex="1"/>
+
+        <Label text="Giảng viên:" GridPane.rowIndex="3"/>
+        <TextField fx:id="txtStaffCode"
+                   GridPane.rowIndex="3"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Ngày bắt đầu:" GridPane.rowIndex="4"/>
+        <DatePicker fx:id="dpStartDate"
+                    GridPane.rowIndex="4"
+                    GridPane.columnIndex="1"/>
+
+        <Label text="Ngày kết thúc:" GridPane.rowIndex="5"/>
+        <DatePicker fx:id="dpEndDate"
+                    GridPane.rowIndex="5"
+                    GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Buttons -->
+    <HBox spacing="10"
+          alignment="CENTER_RIGHT"
+          styleClass="hbox buttons">
+
+        <Button text="Hủy"
+                onAction="#handleCancel"
+                styleClass="button cancel"/>
+
+        <Button text="Cập nhật"
+                onAction="#handleUpdate"
+                styleClass="button"/>
+    </HBox>
+
+</VBox>

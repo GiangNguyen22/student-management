@@ -13,11 +13,12 @@ import java.util.stream.Collectors;
 
 public class ResultController {
 
-    @FXML private TextField txtSearch;
     @FXML private TableView<Result> tableResult;
+
     @FXML private TableColumn<Result, String> colStudentCode;
     @FXML private TableColumn<Result, String> colStudentName;
-    @FXML private TableColumn<Result, String> colCourse;
+    @FXML private TableColumn<Result, String> colCourseCode;
+    @FXML private TableColumn<Result, String> colCourseName;
     @FXML private TableColumn<Result, Double> colScore;
 
     @FXML private Button btnEdit, btnDelete, btnView;
@@ -26,6 +27,7 @@ public class ResultController {
     private ObservableList<Result> results = FXCollections.observableArrayList();
     private ObservableList<Result> filteredResults = FXCollections.observableArrayList();
 
+    /* ================== INIT ================== */
     @FXML
     private void initialize() {
         setupTableColumns();
@@ -87,6 +89,7 @@ public class ResultController {
         updateStatistics();
     }
 
+    /* ================== PAGINATION ================== */
     @FXML
     private void handleRefresh() {
         txtSearch.clear();

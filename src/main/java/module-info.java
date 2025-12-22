@@ -9,16 +9,21 @@ module com.app.desktopapp {
     requires java.net.http;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.fasterxml.jackson.databind;
+    requires java.desktop;
 
     opens com.app.desktopapp to javafx.fxml;
 
     opens com.app.desktopapp.controller to javafx.fxml;
 
-    opens com.app.desktopapp.model to com.fasterxml.jackson.databind;
+    opens com.app.desktopapp.controller.action to javafx.fxml;
+
+    opens com.app.desktopapp.model to com.fasterxml.jackson.databind, javafx.base;
 
     opens com.app.desktopapp.dto to com.fasterxml.jackson.databind;
 
     exports com.app.desktopapp;
+
+    exports com.app.desktopapp.controller.action;
 
     exports com.app.desktopapp.model;
 }

@@ -1,0 +1,73 @@
+/* ===== ROOT ===== */
+.root {
+    -fx-font-family: "Segoe UI", Arial;
+    -fx-background-color: #ffffff;
+}
+
+/* ===== TITLE ===== */
+.dialog-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10 0;
+}
+
+/* ===== LABEL ===== */
+.label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #34495e;
+}
+
+/* ===== TEXT FIELD ===== */
+.text-field,
+.password-field,
+.date-picker {
+    -fx-pref-height: 32px;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #dcdcdc;
+    -fx-background-color: #ffffff;
+}
+
+.text-field:focused,
+.password-field:focused,
+.date-picker:focused {
+    -fx-border-color: #4a90e2;
+    -fx-border-width: 1.5;
+}
+
+/* ===== BUTTON ===== */
+.button {
+    -fx-font-size: 13px;
+    -fx-pref-height: 34px;
+    -fx-padding: 0 16;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+/* ===== SAVE BUTTON ===== */
+.btn-save {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.btn-save:hover {
+    -fx-background-color: #357abd;
+}
+
+/* ===== CANCEL BUTTON ===== */
+.btn-cancel {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333;
+}
+
+.btn-cancel:hover {
+    -fx-background-color: #cfcfcf;
+}
+
+/* ===== GRID SPACING ===== */
+.grid-pane {
+    -fx-padding: 10 0 10 0;
+}
