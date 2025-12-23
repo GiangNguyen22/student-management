@@ -28,8 +28,11 @@
         <Label text="Tên khóa học:" GridPane.rowIndex="1"/>
         <TextField fx:id="txtCourseName" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Giảng viên (Staff Code):" GridPane.rowIndex="2"/>
-        <TextField fx:id="txtStaffCode" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="Giảng viên:" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="cbLecturer"
+                  promptText="-- Chọn giảng viên --"
+                  GridPane.rowIndex="2"
+                  GridPane.columnIndex="1"/>
 
         <Label text="Ngày bắt đầu:" GridPane.rowIndex="3"/>
         <DatePicker fx:id="dpStartDate" GridPane.rowIndex="3" GridPane.columnIndex="1"/>

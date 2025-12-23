@@ -1,7 +1,9 @@
 package com.app.desktopapp.service;
 
+import com.app.desktopapp.dto.ApiListWrapper;
 import com.app.desktopapp.dto.ApiWrapper;
 import com.app.desktopapp.dto.CreateStudentRequest;
+import com.app.desktopapp.dto.LecturerDTO;
 import com.app.desktopapp.model.Student;
 import com.app.desktopapp.utils.AuthContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -228,6 +230,47 @@ public class StudentService {
         }
     }
 
+    public static List<LecturerDTO> getAllLecturer(){
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(BASE + "/staffs");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
+            String token = AuthContext.getToken();
+            if (token != null && !token.isBlank()) {
+                conn.setRequestProperty(
+                        "Authorization", "Bearer " + token
+                );
+            }
+
+            conn.setRequestProperty(
+                    "Content-Type", "application/json"
+            );
+
+            InputStream is = conn.getInputStream();
+            String json = new BufferedReader(
+                    new InputStreamReader(is)
+            ).lines().reduce("", (a, b) -> a + b);
+
+            ApiListWrapper<LecturerDTO> wrapper =
+                    mapper.readValue(
+                            json,
+                            mapper.getTypeFactory()
+                                    .constructParametricType(
+                                            ApiListWrapper.class,
+                                            LecturerDTO.class
+                                    )
+                    );
+
+            return wrapper.getData();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
 
 }
