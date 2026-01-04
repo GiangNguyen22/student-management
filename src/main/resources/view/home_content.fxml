@@ -32,19 +32,13 @@
                 <Label text="Tổng Kết quả" styleClass="stat-label"/>
                 <Label fx:id="lblTotalResults" text="0" styleClass="stat-value"/>
             </VBox>
-            
-            <VBox styleClass="stat-card" alignment="CENTER">
-                <Label text="⭐" styleClass="stat-icon"/>
-                <Label text="Điểm TB" styleClass="stat-label"/>
-                <Label fx:id="lblAvgScore" text="0.0" styleClass="stat-value"/>
-            </VBox>
         </HBox>
         
         <VBox spacing="15">
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label text="🆕 Sinh viên mới đăng ký" styleClass="section-title"/>
                 <HBox HBox.hgrow="ALWAYS"/>
-                <Button text="Xem tất cả" styleClass="link-button"/>
+                <Button text="Xem tất cả" styleClass="link-button" onAction="#handleViewAllStudents"/>
             </HBox>
             
             <TableView fx:id="tableRecentStudents" styleClass="recent-table" prefHeight="280">
@@ -57,16 +51,6 @@
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                 </columnResizePolicy>
             </TableView>
-        </VBox>
-        
-        <VBox spacing="15">
-            <Label text="⚡ Thao tác nhanh" styleClass="section-title"/>
-            <HBox spacing="15" alignment="CENTER">
-                <Button text="➕ Thêm sinh viên" styleClass="quick-action-btn"/>
-                <Button text="📖 Thêm khóa học" styleClass="quick-action-btn"/>
-                <Button text="📊 Nhập kết quả" styleClass="quick-action-btn"/>
-                <Button text="📋 Báo cáo" styleClass="quick-action-btn"/>
-            </HBox>
         </VBox>
     </VBox>
 </AnchorPane>

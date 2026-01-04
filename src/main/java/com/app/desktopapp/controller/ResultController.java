@@ -1,28 +1,53 @@
 package com.app.desktopapp.controller;
 
+import com.app.desktopapp.controller.action.AddResultDialogController;
+import com.app.desktopapp.controller.action.EditResultDialogController;
 import com.app.desktopapp.model.Result;
 import com.app.desktopapp.service.ResultService;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ResultController {
 
-    @FXML private TableView<Result> tableResult;
+    @FXML
+    private TableView<Result> tableResult;
 
-    @FXML private TableColumn<Result, String> colStudentCode;
-    @FXML private TableColumn<Result, String> colStudentName;
-    @FXML private TableColumn<Result, String> colCourseCode;
-    @FXML private TableColumn<Result, String> colCourseName;
-    @FXML private TableColumn<Result, Double> colScore;
+    @FXML
+    private TableColumn<Result, String> colStudentCode;
+    @FXML
+    private TableColumn<Result, String> colStudentName;
+    @FXML
+    private TableColumn<Result, String> colCourseCode;
+    @FXML
+    private TableColumn<Result, String> colCourseName;
+    @FXML
+    private TableColumn<Result, Double> colScore;
+    @FXML
+    private TableColumn<Result, String> colGrade;
+    @FXML
+    private TableColumn<Result, String> colSemester;
+    @FXML
+    private TableColumn<Result, String> colTimeStudied;
 
-    @FXML private Button btnEdit, btnDelete, btnView;
-    @FXML private Label lblRecordCount, lblAverageScore, lblPassFailStats;
+    @FXML
+    private Button btnView;
+    @FXML
+    private Label lblRecordCount, lblAverageScore, lblPassFailStats;
+    @FXML
+    private TextField txtSearch;
 
     private ObservableList<Result> results = FXCollections.observableArrayList();
     private ObservableList<Result> filteredResults = FXCollections.observableArrayList();
@@ -37,10 +62,22 @@ public class ResultController {
     }
 
     private void setupTableColumns() {
-        colStudentCode.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getStudentCode()));
-        colStudentName.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getStudentName()));
-        colCourse.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getCourse()));
-        colScore.setCellValueFactory(cell -> new javafx.beans.property.SimpleDoubleProperty(cell.getValue().getScore()).asObject());
+        colStudentCode.setCellValueFactory(
+                cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getStudentCode()));
+        colStudentName.setCellValueFactory(
+                cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getStudentName()));
+        colCourseCode.setCellValueFactory(
+                cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getCourseCode()));
+        colCourseName.setCellValueFactory(
+                cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getCourseName()));
+        colScore.setCellValueFactory(
+                cell -> new javafx.beans.property.SimpleDoubleProperty(cell.getValue().getScore()).asObject());
+        colGrade.setCellValueFactory(
+                cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getGrade()));
+        colSemester.setCellValueFactory(
+                cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getSemester()));
+        colTimeStudied.setCellValueFactory(
+                cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getTimeStudied()));
 
         colScore.setCellFactory(tc -> new TableCell<Result, Double>() {
             @Override
@@ -53,17 +90,18 @@ public class ResultController {
 
     private void setupSelectionListener() {
         tableResult.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
-            boolean hasSelection = newSel != null;
-            btnEdit.setDisable(!hasSelection);
-            btnDelete.setDisable(!hasSelection);
-            btnView.setDisable(!hasSelection);
+            // boolean hasSelection = newSel != null;
+            // btnEdit.setDisable(!hasSelection);
+            // btnDelete.setDisable(!hasSelection);
+            btnView.setDisable(newSel == null);
         });
     }
 
     private void loadResultsFromApi() {
         results.clear();
         List<Result> list = ResultService.getAllResults();
-        if (list != null) results.addAll(list);
+        if (list != null)
+            results.addAll(list);
         filteredResults.setAll(results);
         updateStatistics();
     }
@@ -80,12 +118,15 @@ public class ResultController {
     @FXML
     private void handleSearch() {
         String txt = txtSearch.getText().toLowerCase().trim();
-        if (txt.isEmpty()) filteredResults.setAll(results);
-        else filteredResults.setAll(results.stream()
-                .filter(r -> r.getStudentCode().toLowerCase().contains(txt) ||
-                             r.getStudentName().toLowerCase().contains(txt) ||
-                             r.getCourse().toLowerCase().contains(txt))
-                .collect(Collectors.toList()));
+        if (txt.isEmpty())
+            filteredResults.setAll(results);
+        else
+            filteredResults.setAll(results.stream()
+                    .filter(r -> r.getStudentCode().toLowerCase().contains(txt) ||
+                            r.getStudentName().toLowerCase().contains(txt) ||
+                            r.getCourseCode().toLowerCase().contains(txt) ||
+                            r.getCourseName().toLowerCase().contains(txt))
+                    .collect(Collectors.toList()));
         updateStatistics();
     }
 
@@ -100,31 +141,71 @@ public class ResultController {
 
     @FXML
     private void handleAddResult() {
-        // TODO: mở Dialog nhập liệu thực tế
-        Result newResult = new Result("SVXXX", "Sinh viên mới", "Môn học mới", 0.0);
-        Result created = ResultService.createResult(newResult);
-        if (created != null) {
-            results.add(created);
-            filteredResults.setAll(results);
-            updateStatistics();
-            showInfoAlert("Thêm kết quả thành công!");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/modal/add-result-modal.fxml"));
+            Parent root = loader.load();
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Thêm kết quả học tập");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(tableResult.getScene().getWindow());
+            dialog.getIcons().add(
+                    new Image(getClass().getResourceAsStream("/images/logo.png")));
+
+            Scene scene = new Scene(root);
+            dialog.setScene(scene);
+
+            AddResultDialogController controller = loader.getController();
+            controller.setStage(dialog);
+
+            dialog.showAndWait();
+
+            if (controller.isSaved()) {
+                loadResultsFromApi();
+                showInfoAlert("Thêm kết quả thành công!");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showInfoAlert("Thêm kết quả thất bại!");
         }
     }
 
     @FXML
     private void handleEditResult() {
         Result sel = tableResult.getSelectionModel().getSelectedItem();
-        if (sel != null) {
-            // TODO: mở Dialog sửa điểm
-            sel.setScore(sel.getScore() + 0.1);
-            Result updated = ResultService.updateResult(sel);
-            if (updated != null) {
-                int idx = results.indexOf(sel);
-                results.set(idx, updated);
-                filteredResults.setAll(results);
-                updateStatistics();
-                showInfoAlert("Cập nhật kết quả thành công!");
-            }
+        if (sel == null) {
+            showInfoAlert("Vui lòng chọn kết quả cần chỉnh sửa!");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/modal/edit-result-modal.fxml"));
+            Parent root = loader.load();
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Chỉnh sửa kết quả học tập");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(tableResult.getScene().getWindow());
+            dialog.getIcons().add(
+                    new Image(getClass().getResourceAsStream("/images/logo.png")));
+
+            Scene scene = new Scene(root);
+            dialog.setScene(scene);
+
+            EditResultDialogController controller = loader.getController();
+            controller.setResult(sel);
+
+            dialog.showAndWait();
+
+            loadResultsFromApi();
+            showInfoAlert("Cập nhật kết quả thành công!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showInfoAlert("Cập nhật kết quả thất bại!");
         }
     }
 
@@ -132,16 +213,18 @@ public class ResultController {
     private void handleDeleteResult() {
         Result sel = tableResult.getSelectionModel().getSelectedItem();
         if (sel != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa kết quả của " + sel.getStudentName() + "?");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Bạn có chắc chắn muốn xóa kết quả của " + sel.getStudentName() + "?");
             alert.setHeaderText("Xóa kết quả");
             if (alert.showAndWait().get() == ButtonType.OK) {
-                boolean ok = ResultService.deleteResult(sel.getStudentCode(), sel.getCourse());
+                boolean ok = ResultService.deleteResult(sel.getStudentCode(), sel.getCourseCode());
                 if (ok) {
                     results.remove(sel);
                     filteredResults.remove(sel);
                     updateStatistics();
                     showInfoAlert("Xóa kết quả thành công!");
-                } else showInfoAlert("Xóa kết quả thất bại!");
+                } else
+                    showInfoAlert("Xóa kết quả thất bại!");
             }
         }
     }
@@ -153,8 +236,7 @@ public class ResultController {
             String status = sel.getScore() >= 5.0 ? "Đạt" : "Không đạt";
             String details = String.format(
                     "MSSV: %s\nHọ tên: %s\nMôn học: %s\nĐiểm: %.1f\nTrạng thái: %s",
-                    sel.getStudentCode(), sel.getStudentName(), sel.getCourse(), sel.getScore(), status
-            );
+                    sel.getStudentCode(), sel.getStudentName(), sel.getCourseName(), sel.getScore(), status);
             Alert alert = new Alert(Alert.AlertType.INFORMATION, details);
             alert.setHeaderText("Thông tin chi tiết");
             alert.setTitle("Chi tiết kết quả");
@@ -164,7 +246,8 @@ public class ResultController {
 
     @FXML
     private void handleTableClick(MouseEvent event) {
-        if (event.getClickCount() == 2) handleViewDetails();
+        if (event.getClickCount() == 2)
+            handleViewDetails();
     }
 
     private void showInfoAlert(String msg) {

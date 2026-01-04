@@ -19,6 +19,7 @@ public class EditStudentController {
     @FXML private DatePicker dpDob;
     @FXML private TextField txtMajor;
     @FXML private TextField txtYear;
+    @FXML private TextField txtGender;
 
     private Student student; // student đang sửa
 
@@ -31,6 +32,7 @@ public class EditStudentController {
         dpDob.setValue(student.getDob());
         txtMajor.setText(student.getMajor());
         txtYear.setText(student.getStartYear());
+        txtGender.setText(student.getGender());
     }
 
     @FXML
@@ -42,6 +44,7 @@ public class EditStudentController {
         updateData.put("dob", dpDob.getValue());
         updateData.put("majorName", txtMajor.getText());
         updateData.put("startYear", txtYear.getText());
+        updateData.put("gender", txtGender.getText());
 
         boolean ok = StudentService.updateStudent(
                 student.getStudentCode(),

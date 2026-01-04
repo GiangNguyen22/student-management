@@ -21,6 +21,7 @@
     <DatePicker fx:id="dpDob"/>
     <TextField fx:id="txtMajor" promptText="Ngành"/>
     <TextField fx:id="txtYear" promptText="Khóa"/>
+    <TextField fx:id="txtGender" promptText="Giới tính"/>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
         <Button text="Lưu" onAction="#handleSave"/>

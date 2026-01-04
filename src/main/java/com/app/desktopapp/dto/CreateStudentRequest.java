@@ -12,6 +12,7 @@ public class CreateStudentRequest {
     private String studentCode;
     private String majorName;
     private String year;
+    private String gender;
     private String role = "STUDENT"; // mặc định
 
     public String getUsername() {
@@ -76,6 +77,14 @@ public class CreateStudentRequest {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getRole() {

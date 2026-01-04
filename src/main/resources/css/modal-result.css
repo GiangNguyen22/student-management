@@ -1,0 +1,98 @@
+/* Modal Result Styles *//* ===== MODAL ROOT ===== */
+.modal-root {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20;
+}
+
+/* ===== HEADER LABEL ===== */
+.header-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #1e293b;
+    -fx-padding: 0 0 15 0;
+}
+
+/* ===== GRID PANE ===== */
+.grid-pane {
+    -fx-padding: 10 0 15 0;
+}
+
+/* ===== LABEL ===== */
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #334155;
+    -fx-alignment: center-right;
+}
+
+/* ===== TEXT FIELD ===== */
+.text-field {
+    -fx-pref-height: 36px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 2;
+    -fx-background-color: #ffffff;
+    -fx-padding: 8 12;
+}
+
+.text-field:focused {
+    -fx-border-color: #64748b;
+    -fx-border-width: 2;
+}
+
+.text-field:disabled {
+    -fx-background-color: #f8fafc;
+    -fx-text-fill: #94a3b8;
+    -fx-border-color: #e2e8f0;
+}
+
+/* ===== BUTTONS CONTAINER ===== */
+.buttons {
+    -fx-padding: 15 0 0 0;
+}
+
+/* ===== BUTTON ===== */
+.button {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-pref-height: 36px;
+    -fx-pref-width: 100px;
+    -fx-padding: 0 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+/* ===== SAVE BUTTON ===== */
+.button:default {
+    -fx-background-color: #059669;
+}
+
+.button:default:hover {
+    -fx-background-color: #047857;
+}
+
+/* ===== CANCEL BUTTON ===== */
+.cancel {
+    -fx-background-color: #64748b;
+    -fx-text-fill: white;
+}
+
+.cancel:hover {
+    -fx-background-color: #475569;
+}
+
+/* ===== VALIDATION ERROR ===== */
+.error-field {
+    -fx-border-color: #dc2626;
+    -fx-border-width: 2;
+}
+
+.error-label {
+    -fx-text-fill: #dc2626;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+}

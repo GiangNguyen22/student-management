@@ -19,6 +19,7 @@
             <Button text="Quản lý Sinh viên" onAction="#loadStudent" styleClass="sidebar-button"/>
             <Button text="Quản lý Khóa học" onAction="#loadCourse" styleClass="sidebar-button"/>
             <Button text="Quản lý Kết quả" onAction="#loadResult" styleClass="sidebar-button"/>
+            <Button text="Quản lý Giảng viên" onAction="#loadStaff" styleClass="sidebar-button"/>
         </VBox>
     </left>
 

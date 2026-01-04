@@ -43,6 +43,9 @@
 
         <Label text="Khóa:" GridPane.rowIndex="7"/>
         <TextField fx:id="txtYear" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+        <Label text="Giới tính:" GridPane.rowIndex="8"/>
+        <TextField fx:id="txtGender" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
     </GridPane>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">

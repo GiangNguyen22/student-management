@@ -1,9 +1,9 @@
 package com.app.desktopapp.controller.action;
 
 import com.app.desktopapp.dto.CourseRequestDTO;
-import com.app.desktopapp.dto.LecturerDTO;
+import com.app.desktopapp.model.Staff;
 import com.app.desktopapp.service.CourseService;
-import com.app.desktopapp.service.StudentService;
+import com.app.desktopapp.service.StaffService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
@@ -21,7 +21,7 @@ public class AddCourseController {
     @FXML private DatePicker dpEndDate;
     @FXML private TextArea txtDescription;
     @FXML
-    private ComboBox<LecturerDTO> cbLecturer;
+    private ComboBox<Staff> cbLecturer;
 
 
     private Stage stage;
@@ -55,19 +55,19 @@ public class AddCourseController {
             return;
         }
 
-        LecturerDTO lecturer = cbLecturer.getValue();
+        Staff lecturer = cbLecturer.getValue();
         if (lecturer == null) {
             showAlert("Vui lòng chọn giảng viên!");
             return;
         }
 
         CourseRequestDTO req = new CourseRequestDTO();
-        req.courseCode = txtCourseCode.getText();
-        req.courseName = txtCourseName.getText();
-        req.staffCode = lecturer.getStaffCode();
-        req.description = txtDescription.getText();
-        req.startDate = dpStartDate.getValue();
-        req.endDate = dpEndDate.getValue();
+        req.setCourseCode(txtCourseCode.getText());
+        req.setCourseName(txtCourseName.getText());
+        req.setStaffCode(lecturer.getStaffCode());
+        req.setDescription(txtDescription.getText());
+        req.setStartDate(dpStartDate.getValue());
+        req.setEndDate(dpEndDate.getValue());
 
         boolean ok = CourseService.createCourse(req);
 
@@ -95,8 +95,8 @@ public class AddCourseController {
     public String getCourseName(){return txtCourseName.getText();}
 
     private void loadLecturers() {
-        List<LecturerDTO> lecturers =
-                StudentService.getAllLecturer();
+        List<Staff> lecturers =
+                StaffService.getStaffs().getData();
 
         cbLecturer.setItems(
                 FXCollections.observableArrayList(lecturers)

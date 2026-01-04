@@ -18,6 +18,7 @@ public class AddStudentDialogController {
     @FXML private TextField txtStudentCode;
     @FXML private TextField txtMajorName;
     @FXML private TextField txtYear;
+    @FXML private TextField txtGender;
 
     private Stage stage;
     private boolean saved = false;
@@ -45,6 +46,7 @@ public class AddStudentDialogController {
         req.setStudentCode(txtStudentCode.getText());
         req.setMajorName(txtMajorName.getText());
         req.setYear(txtYear.getText());
+        req.setGender(txtGender.getText());
         req.setRole(req.getRole());
 
         boolean ok = StudentService.createStudent(req);
@@ -87,4 +89,5 @@ public class AddStudentDialogController {
     public String getStudentCode() { return txtStudentCode.getText(); }
     public String getMajorName() { return txtMajorName.getText(); }
     public String getYear() { return txtYear.getText(); }
+    public String getGender() { return txtGender.getText(); }
 }

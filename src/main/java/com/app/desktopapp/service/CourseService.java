@@ -23,7 +23,7 @@ public class CourseService {
             "http://localhost:8080/courses";
 
     private static final ObjectMapper mapper = new ObjectMapper();
-
+    
     static {
         mapper.registerModule(new JavaTimeModule());
     }

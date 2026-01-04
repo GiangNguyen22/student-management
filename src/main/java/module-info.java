@@ -2,7 +2,7 @@ module com.app.desktopapp {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
-
+    requires javafx.graphics;
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;

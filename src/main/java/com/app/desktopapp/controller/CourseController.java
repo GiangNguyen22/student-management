@@ -25,9 +25,10 @@ public class CourseController {
     @FXML private TableView<Course> tableCourse;
     @FXML private TableColumn<Course, String> colCourseCode;
     @FXML private TableColumn<Course, String> colCourseName;
-    @FXML private TableColumn<Course, Integer> colDesc;
-    @FXML private TableColumn<Course, String> colSemester;
-
+    @FXML private TableColumn<Course, String> colDescription;
+    @FXML private TableColumn<Course, String> colStartDate;
+    @FXML private TableColumn<Course, String> colEndDate;
+    @FXML private TableColumn<Course, String> colStaffCode;
 
     @FXML private Button btnEdit, btnDelete, btnView;
     @FXML private Label lblRecordCount, lblTotalCredits, lblSemesterStats;
@@ -48,8 +49,10 @@ public class CourseController {
     private void setupTableColumns() {
         colCourseCode.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
         colCourseName.setCellValueFactory(new PropertyValueFactory<>("courseName"));
-        colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colSemester.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        colEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        colStaffCode.setCellValueFactory(new PropertyValueFactory<>("staffCode"));
     }
 
     private void setupSelectionListener() {
@@ -249,8 +252,10 @@ public class CourseController {
             alert.setContentText(
                     "Mã KH: " + c.getCourseCode() +
                             "\nTên: " + c.getCourseName() +
-//                            "\nTín chỉ: " + c.getCredits() +
-                            "\nHọc kỳ: " + c.getStartDate()
+                            "\nMô tả: " + c.getDescription() +
+                            "\nNgày bắt đầu: " + c.getStartDate() +
+                            "\nNgày kết thúc: " + c.getEndDate() +
+                            "\nMã giảng viên: " + c.getStaffCode()
             );
             alert.showAndWait();
         }

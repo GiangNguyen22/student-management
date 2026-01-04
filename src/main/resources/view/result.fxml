@@ -8,13 +8,13 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.app.desktopapp.controller.ResultController"
-            stylesheets="@../css/result.css"
+            stylesheets="@../css/result.css,@../css/modal-result.css"
             styleClass="content-pane">
     <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
         <HBox alignment="CENTER_LEFT" spacing="20">
             <Label text="📊 Quản lý Kết quả" styleClass="header-title"/>
             <HBox HBox.hgrow="ALWAYS"/>
-            <Button  styleClass="btn-refresh">
+            <Button  styleClass="btn-refresh" onAction="#handleRefresh">
                 <graphic>
                     <ImageView>
                         <Image url="@../images/app-icon.png" />
@@ -25,23 +25,23 @@
 
         <VBox spacing="15">
             <HBox spacing="12" alignment="CENTER_LEFT">
-                <TextField fx:id="txtSearch" promptText="🔍 Tìm kiếm kết quả theo MSSV, tên, môn học..."
-                          HBox.hgrow="ALWAYS" styleClass="search-field"/>
-                <Button  text="Tìm kiếm" styleClass="btn-search"/>
-                <Button  text="+ Thêm kết quả" styleClass="btn-add"/>
+                <!-- <TextField fx:id="txtSearch" promptText="🔍 Tìm kiếm kết quả theo MSSV, tên, môn học..."
+                          HBox.hgrow="ALWAYS" styleClass="search-field"/> -->
+                <!-- <Button  text="Tìm kiếm" styleClass="btn-search" onAction="#handleSearch"/> -->
+                <Button  text="+ Thêm kết quả" styleClass="btn-add" onAction="#handleAddResult"/>
             </HBox>
             
             <HBox spacing="10">
-                <Button  text="✏️ Chỉnh sửa" styleClass="btn-edit" disable="true" fx:id="btnEdit"/>
-                <Button  text="🗑️ Xóa" styleClass="btn-delete" disable="true" fx:id="btnDelete"/>
-                <Button  text="👁️ Chi tiết" styleClass="btn-view" disable="true" fx:id="btnView"/>
+                <!-- <Button  text="✏️ Chỉnh sửa" styleClass="btn-edit" disable="true" fx:id="btnEdit" onAction="#handleEditResult"/>
+                <Button  text="🗑️ Xóa" styleClass="btn-delete" disable="true" fx:id="btnDelete" onAction="#handleDeleteResult"/> -->
+                <Button  text="👁️ View" styleClass="btn-view" disable="true" fx:id="btnView" onAction="#handleViewDetails"/>
                 <HBox HBox.hgrow="ALWAYS"/>
                 <Label text="Hiển thị: " styleClass="info-text"/>
                 <Label text="0/0 kết quả" styleClass="info-text" fx:id="lblRecordCount"/>
             </HBox>
         </VBox>
 
-        <TableView fx:id="tableResult" styleClass="table-view" prefHeight="450" VBox.vgrow="ALWAYS">
+        <TableView fx:id="tableResult" styleClass="table-view" prefHeight="450" VBox.vgrow="ALWAYS" onMouseClicked="#handleTableClick">
             <columns>
                 <TableColumn fx:id="colStudentCode" text="MSSV"/>
                 <TableColumn fx:id="colStudentName" text="Tên SV"/>

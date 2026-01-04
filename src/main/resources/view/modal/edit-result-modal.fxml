@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.app.desktopapp.controller.action.EditResultDialogController"
+      spacing="14"
+      styleClass="modal-root"
+      stylesheets="@../css/modal-result.css">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Chỉnh sửa kết quả học tập" styleClass="header-label"/>
+
+    <GridPane hgap="12" vgap="12">
+        <columnConstraints>
+            <ColumnConstraints minWidth="140"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Mã sinh viên:" GridPane.rowIndex="0"/>
+        <TextField fx:id="txtStudentCode" GridPane.rowIndex="0" GridPane.columnIndex="1" disable="true"/>
+
+        <Label text="Mã môn học:" GridPane.rowIndex="1"/>
+        <TextField fx:id="txtCourseCode" GridPane.rowIndex="1" GridPane.columnIndex="1" disable="true"/>
+
+        <Label text="Điểm số:" GridPane.rowIndex="2"/>
+        <TextField fx:id="txtScore" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Xếp loại:" GridPane.rowIndex="3"/>
+        <TextField fx:id="txtGrade" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Học kỳ:" GridPane.rowIndex="4"/>
+        <TextField fx:id="txtSemester" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Thời gian học:" GridPane.rowIndex="5"/>
+        <TextField fx:id="txtTimeStudied" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="12" alignment="CENTER_RIGHT" styleClass="buttons">
+        <Button text="Hủy" onAction="#handleCancel" styleClass="cancel"/>
+        <Button text="Lưu" onAction="#handleSave"/>
+    </HBox>
+
+</VBox>

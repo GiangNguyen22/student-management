@@ -38,5 +38,13 @@ public class Student {
     public LocalDate getDob() { return dob; }
     public String getStartYear() { return startYear; }
     public String getGender() { return gender; }
+
+    public void setStudentCode(String studentCode) { this.studentCode = studentCode; }
+    public void setName(String name) { this.name = name; }
+    public void setEmail(String email) { this.email = email; }
+    public void setMajor(String major) { this.major = major; }
+    public void setDob(LocalDate dob) { this.dob = dob; }
+    public void setStartYear(String startYear) { this.startYear = startYear; }
+    public void setGender(String gender) { this.gender = gender; }
 }
 
