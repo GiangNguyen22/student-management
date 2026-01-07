@@ -26,12 +26,12 @@
                 style="-fx-background-color: transparent;
                -fx-text-fill: #4a7bd6;
                -fx-font-weight: 700;" />
-        <Button text="Home"
-                onAction="#openHome"
-                style="-fx-background-color: #2ecc71;
-               -fx-text-fill: white;
-               -fx-font-weight: 700;
-    " />
+<!--        <Button text="Home"-->
+<!--                onAction="#openHome"-->
+<!--                style="-fx-background-color: #2ecc71;-->
+<!--               -fx-text-fill: white;-->
+<!--               -fx-font-weight: 700;-->
+<!--    " />-->
         <Label fx:id="lblStatus" styleClass="login-status"/>
 
     </VBox>

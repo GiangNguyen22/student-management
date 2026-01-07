@@ -1,6 +1,8 @@
 package com.app.desktopapp.controller;
 
+import com.app.desktopapp.dto.ActionResponse;
 import com.app.desktopapp.dto.CreateStudentRequest;
+import com.app.desktopapp.service.ApiResponse;
 import com.app.desktopapp.service.StudentService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -49,9 +51,9 @@ public class AddStudentDialogController {
         req.setGender(txtGender.getText());
         req.setRole(req.getRole());
 
-        boolean ok = StudentService.createStudent(req);
+        ActionResponse response = StudentService.createStudent(req);
 
-        if (ok) {
+        if (response.isSuccess()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("Thêm sinh viên thành công!");
@@ -62,7 +64,7 @@ public class AddStudentDialogController {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Lỗi");
-            alert.setContentText("Không thể thêm sinh viên");
+            alert.setContentText(response.getMessage());
             alert.show();
         }
 

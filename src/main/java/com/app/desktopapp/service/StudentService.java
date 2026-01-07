@@ -1,24 +1,22 @@
 package com.app.desktopapp.service;
 
-import com.app.desktopapp.dto.ApiListWrapper;
-import com.app.desktopapp.dto.ApiWrapper;
-import com.app.desktopapp.dto.CreateStudentRequest;
-import com.app.desktopapp.dto.LecturerDTO;
+import com.app.desktopapp.dto.*;
 import com.app.desktopapp.model.Student;
 import com.app.desktopapp.utils.AuthContext;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StudentService {
 
@@ -84,9 +82,59 @@ public class StudentService {
         }
     }
 
-    public static boolean createStudent(CreateStudentRequest req) {
-        return sendJsonRequest(BASE + "/create", "POST", req);
+    public static ActionResponse createStudent(CreateStudentRequest req) {
+        try {
+            URL url = new URL(BASE + "/create");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+            String json = mapper.writeValueAsString(req);
+
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(json.getBytes(StandardCharsets.UTF_8));
+            }
+
+            int status = conn.getResponseCode();
+
+            if (status == 200 || status == 201) {
+                return new ActionResponse(true, "Thêm sinh viên thành công");
+            } else {
+                String errorBody = readStream(conn.getErrorStream());
+                String message = extractMessage(errorBody);
+                return new ActionResponse(false, message);
+            }
+
+        } catch (Exception e) {
+            return new ActionResponse(false, e.getMessage());
+        }
     }
+
+
+    private static String readStream(InputStream is) throws IOException {
+        if (is == null) return "Unknown error";
+        return new BufferedReader(new InputStreamReader(is))
+                .lines()
+                .collect(Collectors.joining("\n"));
+    }
+
+    private static String extractMessage(String json) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode node = mapper.readTree(json);
+            return node.get("message").asText();
+        } catch (Exception e) {
+            return json;
+        }
+    }
+
+
 
     public static boolean updateStudent(String studentCode, Map<String, Object> updateData) {
         return sendJsonRequest(BASE + "/student/" + studentCode, "PUT", updateData);
