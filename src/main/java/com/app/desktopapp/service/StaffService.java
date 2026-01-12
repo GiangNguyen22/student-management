@@ -5,6 +5,7 @@ import com.app.desktopapp.utils.AuthContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -55,7 +56,7 @@ public class StaffService {
     /* ================= UPDATE STAFF ================= */
     public static boolean updateStaff(Staff staff) {
         try {
-            HttpURLConnection conn = openConn(BASE, "PUT");
+            HttpURLConnection conn = openConn(BASE + "/" + staff.getUsername(), "PUT");
             conn.setDoOutput(true);
             String json = mapper.writeValueAsString(staff);
             conn.getOutputStream().write(json.getBytes(StandardCharsets.UTF_8));
@@ -67,17 +68,36 @@ public class StaffService {
         }
     }
 
-    /* ================= DELETE STAFF ================= */
-    public static boolean deleteStaff(String username) {
-        try {
-            HttpURLConnection conn = openConn(BASE + "/" + username, "DELETE");
-            int status = conn.getResponseCode();
-            return status == 200 || status == 204;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    /* ================= HANDLE EDIT ================= */
+    public static boolean handleEdit(String username, Staff staff) {
+        staff.setUsername(username);
+        return updateStaff(staff);
     }
+
+    /* ================= DELETE STAFF ================= */
+   public static boolean deleteStaff(String username) {
+    try {
+        String urlStr = BASE + "/" + username;
+        System.out.println("Deleting staff at URL: " + urlStr);
+
+        HttpURLConnection conn = openConn(urlStr, "DELETE");
+        int status = conn.getResponseCode();
+        System.out.println("HTTP status: " + status);
+
+        InputStream is = status >= 400 ? conn.getErrorStream() : conn.getInputStream();
+        if (is != null) {
+            String body = new BufferedReader(new InputStreamReader(is))
+                    .lines().reduce("", (a,b) -> a+b);
+            System.out.println("Response body: " + body);
+        }
+
+        return status == 200 || status == 204;
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 
     /* ================= COMMON ================= */
     private static HttpURLConnection openConn(String urlStr, String method) throws Exception {

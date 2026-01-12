@@ -153,6 +153,8 @@ public class StaffController {
                 if (ok) {
                     staffs.remove(s);
                     lblRecordCount.setText("Tổng: " + staffs.size());
+                } else {
+                    showErrorAlert("Xóa nhân viên thất bại");
                 }
             }
         });
@@ -175,5 +177,12 @@ public class StaffController {
                 "Mã NV: " + s.getStaffCode() + "\n" +
                 "Giới tính: " + s.getGender());
         alert.showAndWait();
+    }
+
+    private void showErrorAlert(String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Lỗi");
+        alert.setContentText(msg);
+        alert.show();
     }
 }

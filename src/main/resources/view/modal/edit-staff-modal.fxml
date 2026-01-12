@@ -17,19 +17,22 @@
 
         <!-- Form -->
         <GridPane hgap="12" vgap="12">
-            <Label text="Họ tên:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtName" promptText="Nhập họ tên nhân viên" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+            <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtUsername" promptText="Username" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" disable="true"/>
 
-            <Label text="Chức vụ:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtPosition" promptText="Nhập chức vụ" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+            <Label text="Họ tên:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtName" promptText="Nhập họ tên nhân viên" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
-            <Label text="Khoa:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtMajor" promptText="Nhập khoa" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+            <Label text="Chức vụ:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtPosition" promptText="Nhập chức vụ" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
-            <Label text="Mã NV:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtStaffCode" promptText="Nhập mã nhân viên" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
-            <Label text="Giới tính:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtGender" promptText="Nhập giới tính" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+            <Label text="Khoa:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtMajor" promptText="Nhập khoa" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+
+            <Label text="Mã NV:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtStaffCode" promptText="Nhập mã nhân viên" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+            <Label text="Giới tính:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtGender" promptText="Nhập giới tính" GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
         </GridPane>
 
         <!-- Buttons -->

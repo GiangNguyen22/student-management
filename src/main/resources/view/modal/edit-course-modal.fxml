@@ -43,9 +43,10 @@
                   GridPane.columnIndex="1"/>
 
         <Label text="Giảng viên:" GridPane.rowIndex="3"/>
-        <TextField fx:id="txtStaffCode"
-                   GridPane.rowIndex="3"
-                   GridPane.columnIndex="1"/>
+        <ComboBox fx:id="cbLecturer"
+                  promptText="-- Chọn giảng viên --"
+                  GridPane.rowIndex="3"
+                  GridPane.columnIndex="1"/>
 
         <Label text="Ngày bắt đầu:" GridPane.rowIndex="4"/>
         <DatePicker fx:id="dpStartDate"

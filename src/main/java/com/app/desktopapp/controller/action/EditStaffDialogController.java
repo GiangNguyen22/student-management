@@ -12,6 +12,7 @@ import java.util.Map;
 
 public class EditStaffDialogController {
 
+    @FXML private TextField txtUsername;
     @FXML private TextField txtName;
     @FXML private TextField txtPosition;
     @FXML private TextField txtMajor;
@@ -25,6 +26,7 @@ public class EditStaffDialogController {
         this.staff = staff;
 
         // Đổ dữ liệu lên form
+        txtUsername.setText(staff.getUsername());
         txtName.setText(staff.getName());
         txtPosition.setText(staff.getPosition());
         txtMajor.setText(staff.getMajorName());
@@ -45,7 +47,8 @@ public class EditStaffDialogController {
 
 
 
-        boolean ok = StaffService.updateStaff(
+        boolean ok = StaffService.handleEdit(
+                staff.getUsername(),
                 updateData
         );
 
