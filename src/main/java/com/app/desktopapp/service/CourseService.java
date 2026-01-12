@@ -43,7 +43,7 @@ public class CourseService {
         }
 
         return callApi(
-                BASE + "/search?keyword=" + q
+                BASE + "/search?courseCode=" + q + "&name=" + q
                         + "&page=" + page + "&size=20"
         );
     }

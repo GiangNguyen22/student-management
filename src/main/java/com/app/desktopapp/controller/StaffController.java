@@ -1,6 +1,7 @@
 package com.app.desktopapp.controller;
 
 import com.app.desktopapp.controller.action.AddStaffDialogController;
+import com.app.desktopapp.controller.action.EditStaffDialogController;
 import com.app.desktopapp.model.Staff;
 import com.app.desktopapp.service.ApiResponse;
 import com.app.desktopapp.service.StaffService;
@@ -97,6 +98,44 @@ public class StaffController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleEditStaff() {
+        try {
+            // 1️⃣ Lấy staff đang được chọn
+            Staff selectedStaff = tableStaff.getSelectionModel().getSelectedItem();
+            if (selectedStaff == null) {
+                return;
+            }
+
+            // 2️⃣ Load FXML
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/modal/edit-staff-modal.fxml"));
+            Parent root = loader.load();
+
+            // 3️⃣ Lấy controller & set data
+            EditStaffDialogController controller = loader.getController();
+            controller.setStaff(selectedStaff);
+
+            // 4️⃣ Tạo dialog
+            Stage dialog = new Stage();
+            dialog.setTitle("Sửa nhân viên");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(tableStaff.getScene().getWindow());
+            dialog.getIcons().add(
+                    new Image(getClass().getResourceAsStream("/images/logo.png")));
+
+            dialog.setScene(new Scene(root));
+            dialog.showAndWait();
+
+            // 5️⃣ Reload lại table sau khi đóng dialog
+            loadData();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void handleDeleteStaff() {

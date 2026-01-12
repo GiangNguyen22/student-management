@@ -1,76 +1,119 @@
+/* ================= ROOT ================= */
 .root {
     -fx-font-family: "Segoe UI Semibold", "Segoe UI", "Arial";
-    -fx-font-weight: 600;                  
-    -fx-font-smoothing-type: lcd;        
-    -fx-background-image: url("../images/bg2.png");
+    -fx-font-smoothing-type: lcd;
+
+    -fx-background-image: url("../images/bg3.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
-    -fx-background-size: cover; 
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #f5f8fb 0%, #eaf0f8 40%, #e1e9f5 100%);
-    -fx-padding: 28;
+    -fx-background-size: cover;
+
+    /* overlay nhẹ để text dễ đọc */
+    -fx-background-color:
+            linear-gradient(
+                    from 0% 0% to 100% 100%,
+                    rgba(0, 120, 120, 0.55),
+                    rgba(0, 160, 160, 0.35)
+            );
+
+    -fx-padding: 32;
     -fx-alignment: center;
 }
 
+/* ================= LOGIN CARD ================= */
 .login-card {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-padding: 16 20;
-    -fx-spacing: 8;
-    -fx-effect: dropshadow(gaussian, rgba(23,35,55,0.12), 14, 0.25, 0, 6);
+    -fx-background-color: rgba(255, 255, 255, 0.92);
+    -fx-background-radius: 14;
+    -fx-padding: 20 22;
+    -fx-spacing: 10;
+
+    -fx-effect: dropshadow(gaussian, rgba(0, 60, 60, 0.25), 18, 0.25, 0, 8);
+
     -fx-max-width: 420px;
     -fx-pref-width: 380px;
     -fx-min-width: 300px;
-    -fx-pref-height: 320px;  
-    -fx-min-height: 260px;  
-    -fx-max-height: 420px;  
+
+    -fx-pref-height: 320px;
+    -fx-min-height: 300px;
+    -fx-max-height: 340px;
 }
 
+/* ================= TITLE ================= */
 .login-title {
     -fx-font-size: 18px;
-    -fx-font-weight: 700;    
-    -fx-text-fill: #2b4d78;
-    -fx-padding: 4 0 4 0;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0f3f46;
+    -fx-padding: 6 0 8 0;
 }
 
+/* ================= LABEL ================= */
 .label {
-    -fx-text-fill: #55606a;
+    -fx-text-fill: #355f66;
     -fx-font-size: 13px;
-    -fx-font-weight: 600;  
+    -fx-font-weight: 600;
 }
 
-.text-field, .password-field {
-    -fx-pref-height: 32;
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-border-color: #e3e8ef;
-    -fx-background-color: #fbfdff;
-    -fx-padding: 0 10 0 10;
-    -fx-font-size: 13px;
-    -fx-font-weight: 600;  
-}
-
-.text-field:focused, .password-field:focused {
-    -fx-border-color: #7aa0e6;
-    -fx-effect: dropshadow(gaussian, rgba(122,160,230,0.12), 8, 0.15, 0, 2);
-}
-
-.button {
-    -fx-background-color: linear-gradient(to bottom, #4a7bd6, #2f5fb3);
-    -fx-text-fill: white;
-    -fx-font-weight: 700;
-    -fx-background-radius: 8;
+/* ================= INPUT ================= */
+.text-field,
+.password-field {
     -fx-pref-height: 34;
-    -fx-cursor: hand;
+
+    -fx-background-radius: 9;
+    -fx-border-radius: 9;
+
+    -fx-border-color: #d6eef0;
+    -fx-background-color: #f7feff;
+
+    -fx-padding: 0 12;
     -fx-font-size: 13px;
+    -fx-font-weight: 600;
+
+    -fx-text-fill: #1f3b4d;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #2ec4b6;
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(46, 196, 182, 0.25),
+            10, 0.25, 0, 2
+    );
+}
+
+/* ================= BUTTON ================= */
+.button {
+    -fx-background-color:
+            linear-gradient(to bottom, #2ec4b6, #1aa6a6);
+
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-font-size: 13px;
+
+    -fx-background-radius: 9;
+    -fx-pref-height: 36;
+    -fx-cursor: hand;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(26, 166, 166, 0.35),
+            10, 0.25, 0, 4
+    );
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(to bottom, #3e69b8, #234f92);
+    -fx-background-color:
+            linear-gradient(to bottom, #26b0a6, #148f8f);
 }
 
+.button:pressed {
+    -fx-translate-y: 1;
+}
+
+/* ================= STATUS / ERROR ================= */
 .login-status {
-    -fx-text-fill: #c0392b;
+    -fx-text-fill: #e74c3c;
     -fx-font-size: 12px;
-    -fx-font-weight: 600;
+    -fx-font-weight: 700;
     -fx-padding: 4 0 0 0;
 }

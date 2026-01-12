@@ -19,8 +19,8 @@
             <HBox HBox.hgrow="ALWAYS"/>
             <Button onAction="#handleRefresh" styleClass="btn-refresh">
                 <graphic>
-                    <ImageView>
-                        <Image url="@../images/app-icon.png" />
+                    <ImageView fitWidth="100" fitHeight="100" preserveRatio="true">
+                        <Image url="@../images/book-icon.png" />
                     </ImageView>
                 </graphic>
             </Button>
@@ -28,8 +28,8 @@
 
         <VBox spacing="15">
             <HBox spacing="12" alignment="CENTER_LEFT">
-                <TextField fx:id="txtSearch" promptText="🔍 Search by StudentCode, Name, Email..." HBox.hgrow="ALWAYS" styleClass="search-field"/>
-                <Button onAction="#handleSearch" text="Search" styleClass="btn-search"/>
+                <TextField fx:id="txtSearch" promptText="🔍 Search by StudentCode, Name" HBox.hgrow="ALWAYS" styleClass="search-field"/>
+                <Button onAction="#handleSearch" text="Search" styleClass="btn-search" defaultButton="true"/>
                 <Button onAction="#handleAddStudent" text="+ Add Student" styleClass="btn-add"/>
             </HBox>
 
@@ -52,7 +52,7 @@
                 <TableColumn fx:id="colEmail" text="Email" prefWidth="200" resizable="true"/>
                 <TableColumn fx:id="colMajor" text="Major" prefWidth="130" resizable="true"/>
                 <TableColumn fx:id="colDob" text="DOB" prefWidth="110" resizable="true"/>
-                <TableColumn fx:id="colStartYear" text="StartYear" prefWidth="80" resizable="true"/>
+                <TableColumn fx:id="colStartYear" text="Academic Year" prefWidth="80" resizable="true"/>
                 <TableColumn fx:id="colGender" text="Gender" prefWidth="90" resizable="true"/>
             </columns>
             <columnResizePolicy>

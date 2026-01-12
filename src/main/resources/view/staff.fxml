@@ -36,6 +36,7 @@
         <HBox spacing="10">
             <Button fx:id="btnEdit"
                     text="✏️ Edit"
+                    onAction="#handleEditStaff"
                     disable="true"
                     styleClass="btn-edit"/>
 

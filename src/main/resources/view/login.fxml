@@ -20,7 +20,7 @@
         <TextField fx:id="txtUsername" promptText="Username"/>
         <PasswordField fx:id="txtPassword" promptText="Password"/>
 
-        <Button text="Login" onAction="#handleLogin"/>
+        <Button text="Login" onAction="#handleLogin" defaultButton="true"/>
         <Button text="Register"
                 onAction="#openRegister"
                 style="-fx-background-color: transparent;

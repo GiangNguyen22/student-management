@@ -16,8 +16,8 @@
             <HBox HBox.hgrow="ALWAYS"/>
             <Button onAction="#handleRefresh" styleClass="btn-refresh">
                 <graphic>
-                    <ImageView>
-                        <Image url="@../images/app-icon.png" />
+                    <ImageView fitWidth="100" fitHeight="100" preserveRatio="true">
+                        <Image url="@../images/book-icon.png" />
                     </ImageView>
                 </graphic>
             </Button>
@@ -27,7 +27,7 @@
             <HBox spacing="12" alignment="CENTER_LEFT">
                 <TextField fx:id="txtSearch" promptText="🔍 Tìm kiếm khóa học theo mã, tên..."
                           HBox.hgrow="ALWAYS" styleClass="search-field"/>
-                <Button onAction="#handleSearch" text="Tìm kiếm" styleClass="btn-search"/>
+                <Button onAction="#handleSearch" text="Tìm kiếm" styleClass="btn-search" defaultButton="true"/>
                 <Button onAction="#handleAddCourse" text="+ Thêm khóa học" styleClass="btn-add"/>
             </HBox>
             

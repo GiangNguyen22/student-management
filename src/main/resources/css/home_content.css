@@ -1,0 +1,120 @@
+/* ================= ROOT ================= */
+.root {
+    -fx-font-family: "Inter", "Segoe UI", sans-serif;
+    -fx-background-color: #f8fafc;
+}
+
+/* ================= TITLES ================= */
+.dashboard-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0f172a;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #1e293b;
+}
+
+/* ================= STAT CARDS ================= */
+.stat-card {
+    -fx-background-color: white;
+    -fx-padding: 24;
+    -fx-spacing: 6;
+    -fx-min-width: 220;
+    -fx-min-height: 140;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 16, 0.2, 0, 6);
+}
+
+.stat-card:hover {
+    -fx-translate-y: -4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 22, 0.25, 0, 10);
+}
+
+/* Icon */
+.stat-icon {
+    -fx-font-size: 28px;
+}
+
+/* Label */
+.stat-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+}
+
+/* Value */
+.stat-value {
+    -fx-font-size: 30px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #2563eb;
+}
+
+/* ================= LINK BUTTON ================= */
+.link-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2563eb;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+}
+
+.link-button:hover {
+    -fx-text-fill: #1d4ed8;
+    -fx-underline: true;
+}
+
+/* ================= TABLE (RECENT STUDENTS) ================= */
+.recent-table {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+}
+
+/* Header background */
+.recent-table .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #f8fafc, #eef2f7);
+    -fx-background-radius: 14 14 0 0;
+}
+
+/* Header text */
+.recent-table .column-header .label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1f2937;
+}
+
+/* Rows */
+.recent-table .table-row-cell {
+    -fx-background-color: white;
+}
+
+.recent-table .table-row-cell:odd {
+    -fx-background-color: #f9fafb;
+}
+
+.recent-table .table-row-cell:hover {
+    -fx-background-color: #eef2ff;
+}
+
+/* Cells */
+.recent-table .table-cell {
+    -fx-font-size: 13px;
+    -fx-text-fill: #374151;
+    -fx-padding: 10 14;
+}
+
+/* Selected row */
+.recent-table .table-row-cell:selected {
+    -fx-background-color: #dbeafe;
+}
+
+.recent-table .table-row-cell:selected .table-cell {
+    -fx-text-fill: #1e3a8a;
+}

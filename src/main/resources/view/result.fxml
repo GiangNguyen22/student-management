@@ -16,8 +16,8 @@
             <HBox HBox.hgrow="ALWAYS"/>
             <Button  styleClass="btn-refresh" onAction="#handleRefresh">
                 <graphic>
-                    <ImageView>
-                        <Image url="@../images/app-icon.png" />
+                    <ImageView fitWidth="100" fitHeight="100" preserveRatio="true">
+                        <Image url="@../images/book-icon.png" />
                     </ImageView>
                 </graphic>
             </Button>

@@ -31,15 +31,25 @@
 
 .sidebar-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #cbd5e1;
-    -fx-font-size: 14px;
-    -fx-padding: 15 12;
-    -fx-background-radius: 8;
+    -fx-text-fill: #d0d7e2;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 14;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
     -fx-cursor: hand;
+    -fx-background-radius: 8;
 }
 
 .sidebar-button:hover {
-    -fx-background-color: rgba(59, 130, 246, 0.15);
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+.sidebar-button.active {
+    -fx-background-color: linear-gradient(
+            to right,
+            #4a7bd6,
+            #2f5fb3
+    );
     -fx-text-fill: white;
 }
 

@@ -6,7 +6,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.app.desktopapp.controller.action.EditStaffDialogController"
-            stylesheets="@../css/edit-student.css"
+            stylesheets="@../../css/edit-student.css"
             styleClass="modal-pane">
 
     <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
@@ -17,16 +17,14 @@
 
         <!-- Form -->
         <GridPane hgap="12" vgap="12">
-            <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtUsername" promptText="Nhập username" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
-            <Label text="Họ tên:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtName" promptText="Nhập họ tên nhân viên" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+            <Label text="Họ tên:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtName" promptText="Nhập họ tên nhân viên" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
             <Label text="Chức vụ:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
             <TextField fx:id="txtPosition" promptText="Nhập chức vụ" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
-            <Label text="Ngành:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtMajor" promptText="Nhập ngành" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+            <Label text="Khoa:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtMajor" promptText="Nhập khoa" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
             <Label text="Mã NV:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
             <TextField fx:id="txtStaffCode" promptText="Nhập mã nhân viên" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>

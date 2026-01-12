@@ -1,16 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
+/* ================================
+   ROOT
+================================ */
 .root {
     -fx-font-family: "Inter", "Segoe UI", sans-serif;
     -fx-background-color: #f8fafc;
 }
 
+/* ================================
+   HEADER
+================================ */
 .header-title {
     -fx-font-size: 24px;
     -fx-font-weight: 600;
     -fx-text-fill: #1e293b;
 }
 
+/* ================================
+   SEARCH FIELD
+================================ */
 .search-field {
     -fx-background-color: white;
     -fx-border-color: #e2e8f0;
@@ -27,6 +36,9 @@
     -fx-border-color: #64748b;
 }
 
+/* ================================
+   BUTTONS
+================================ */
 .button {
     -fx-font-size: 13px;
     -fx-font-weight: 500;
@@ -66,51 +78,70 @@
     -fx-border-width: 1;
 }
 
+/* ================================
+   TABLE VIEW
+================================ */
 .table-view {
     -fx-background-color: white;
     -fx-border-color: #e2e8f0;
     -fx-border-width: 1;
     -fx-background-radius: 8;
     -fx-border-radius: 8;
+    -fx-padding: 5;
 }
 
+/* Header background */
 .table-view .column-header-background {
     -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
 }
 
-.table-view .column-header .label {
-    -fx-text-fill: #374151;
-    -fx-font-size: 13px;
-    -fx-font-weight: 600;
-}
-
-.table-view .cell {
-    -fx-text-fill: #374151;
-    -fx-font-size: 13px;
-}
-
-.table-view .table-cell {
-    -fx-text-fill: #374151;
-    -fx-font-size: 13px;
+/* Header cell */
+.table-view .column-header {
+    -fx-background-color: transparent;
     -fx-padding: 8 12;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 1 0 0;
 }
 
+/* Header text */
+.table-view .column-header .label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1f2937;
+    -fx-alignment: CENTER;
+}
+
+/* Row */
 .table-view .table-row-cell {
     -fx-background-color: white;
+    -fx-cell-size: 40px;
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 0 0 1 0;
 }
 
+/* Alternate row */
 .table-view .table-row-cell:odd {
     -fx-background-color: #f8fafc;
 }
 
+/* Hover */
 .table-view .table-row-cell:hover {
     -fx-background-color: #f1f5f9;
 }
 
+/* Selected */
 .table-view .table-row-cell:selected {
     -fx-background-color: #e0f2fe;
+}
+
+/* Cell */
+.table-view .table-cell {
+    -fx-text-fill: #374151;
+    -fx-font-size: 13px;
+    -fx-padding: 8 12;
+    -fx-alignment: CENTER-LEFT;
 }
 
 .table-view .table-row-cell:selected .table-cell {
