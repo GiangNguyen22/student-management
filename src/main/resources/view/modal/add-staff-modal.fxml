@@ -6,7 +6,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.app.desktopapp.controller.action.AddStaffDialogController"
-            stylesheets="@../css/add-student.css"
+            stylesheets="@../../css/add-student.css"
             styleClass="modal-pane">
 
     <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
